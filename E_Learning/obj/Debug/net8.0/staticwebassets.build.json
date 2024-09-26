@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "BOQMb0nbse5CMCEEpxiGtLznA+YiCQRl7uGAXdY33xo=",
+  "Hash": "GkwQ3cQF9U85onFMXPvpv0mCOn51QHxsixMShOFEDw4=",
   "Source": "E_Learning",
   "BasePath": "_content/E_Learning",
   "Mode": "Default",
@@ -16,6 +16,44 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "C:\\Users\\Mohamed Hakim\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid\\8.0.8\\staticwebassets\\Microsoft.AspNetCore.Components.QuickGrid.bundle.scp.css",
+      "SourceId": "Microsoft.AspNetCore.Components.QuickGrid",
+      "SourceType": "Package",
+      "ContentRoot": "C:\\Users\\Mohamed Hakim\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid\\8.0.8\\staticwebassets\\",
+      "BasePath": "_content/Microsoft.AspNetCore.Components.QuickGrid",
+      "RelativePath": "Microsoft.AspNetCore.Components.QuickGrid.bundle.scp.css",
+      "AssetKind": "All",
+      "AssetMode": "Reference",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "ScopedCss",
+      "AssetTraitValue": "ProjectBundle",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\Mohamed Hakim\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid\\8.0.8\\staticwebassets\\Microsoft.AspNetCore.Components.QuickGrid.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\Mohamed Hakim\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid\\8.0.8\\staticwebassets\\QuickGrid.razor.js",
+      "SourceId": "Microsoft.AspNetCore.Components.QuickGrid",
+      "SourceType": "Package",
+      "ContentRoot": "C:\\Users\\Mohamed Hakim\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid\\8.0.8\\staticwebassets\\",
+      "BasePath": "_content/Microsoft.AspNetCore.Components.QuickGrid",
+      "RelativePath": "QuickGrid.razor.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\Mohamed Hakim\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid\\8.0.8\\staticwebassets\\QuickGrid.razor.js"
+    },
     {
       "Identity": "F:\\back-end\\.NET projects\\E_Learning\\E_Learning\\obj\\Debug\\net8.0\\scopedcss\\bundle\\E_Learning.styles.css",
       "SourceId": "E_Learning",

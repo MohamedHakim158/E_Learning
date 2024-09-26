@@ -1,4 +1,5 @@
 using E_Learning.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace E_Learning
@@ -10,12 +11,21 @@ namespace E_Learning
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
             // Customer Services
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("default"));
             });
+            builder.Services.AddIdentity<User, IdentityRole>(op =>
+            {
+                op.Password.RequireDigit = true;
+                op.Password.RequiredLength = 8;
+                op.Password.RequireUppercase = true;
+                op.Password.RequireLowercase = true;
+                op.Password.RequireNonAlphanumeric = true;
+            })
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
 
             var app = builder.Build();
@@ -30,6 +40,11 @@ namespace E_Learning
             app.UseRouting();
 
             app.UseAuthorization();
+            app.MapControllerRoute(
+                  name: "area",
+                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+            
 
             app.MapControllerRoute(
                 name: "default",

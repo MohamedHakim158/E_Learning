@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace E_Learning.Models
 {
-    public class User
+    public class User: IdentityUser
     {
-        public string Id { get; set; } = Guid.NewGuid().ToString();
+       
         [MinLength(3, ErrorMessage = "First name must be at least 3 characters")]
         [RegularExpression("^[a-zA-Z]+$", ErrorMessage = "The first name must contain only alphabetic characters.")]
         public string FName { get; set; }
@@ -22,6 +23,6 @@ namespace E_Learning.Models
         public string? ConfirmEmailCode { get; set; }
         public string? ResetPasswordCode { get; set; }
         public Enrollment? Enrollment { get; set; }
-        public Earning? Earning { get; set; }
+        
     }
 }

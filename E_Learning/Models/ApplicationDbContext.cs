@@ -1,14 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
-
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 namespace E_Learning.Models
 {
-    public class ApplicationDbContext:DbContext
+    public class ApplicationDbContext: IdentityDbContext<User>
     {
         public ApplicationDbContext()
         {
             
         }
-        public ApplicationDbContext(DbContextOptions options):base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options):base(options)
         {
             
         }
@@ -25,7 +26,6 @@ namespace E_Learning.Models
         public DbSet<QuizQuestion> quizQuestions { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Enrollment> Enrollments { get; set; }
-        public DbSet<Earning> Earnings { get; set; }
         public DbSet<InstructorWithdraw> InstructorWithdraws { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<WishList> WishLists { get; set; }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\back-end\\DEpi Githup\\E_Learning\\E_Learning\\E_Learning.csproj": {}
+    "F:\\back-end\\.NET projects\\E_Learning\\E_Learning\\E_Learning.csproj": {}
   },
   "projects": {
-    "F:\\back-end\\DEpi Githup\\E_Learning\\E_Learning\\E_Learning.csproj": {
+    "F:\\back-end\\.NET projects\\E_Learning\\E_Learning\\E_Learning.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\back-end\\DEpi Githup\\E_Learning\\E_Learning\\E_Learning.csproj",
+        "projectUniqueName": "F:\\back-end\\.NET projects\\E_Learning\\E_Learning\\E_Learning.csproj",
         "projectName": "E_Learning",
-        "projectPath": "F:\\back-end\\DEpi Githup\\E_Learning\\E_Learning\\E_Learning.csproj",
+        "projectPath": "F:\\back-end\\.NET projects\\E_Learning\\E_Learning\\E_Learning.csproj",
         "packagesPath": "C:\\Users\\Mohamed Hakim\\.nuget\\packages\\",
-        "outputPath": "F:\\back-end\\DEpi Githup\\E_Learning\\E_Learning\\obj\\",
+        "outputPath": "F:\\back-end\\.NET projects\\E_Learning\\E_Learning\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Mohamed Hakim\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,6 +40,22 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter": {
+              "target": "Package",
+              "version": "[8.0.8, )"
+            },
+            "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.8, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.8, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
+              "target": "Package",
+              "version": "[8.0.8, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.8, )"
