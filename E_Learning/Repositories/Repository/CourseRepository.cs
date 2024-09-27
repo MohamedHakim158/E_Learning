@@ -1,0 +1,70 @@
+﻿using E_Learning.Models;
+using E_Learning.Repository.IReposatories;
+using Microsoft.EntityFrameworkCore;
+
+namespace E_Learning.Repositories.Repository
+{
+    public class CourseRepository : ICourseRepository
+    {
+        private readonly DbContext _context;
+
+        public CourseRepository(DbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<IEnumerable<Course>> GetAllAsync()
+        {
+            return await _context.Set<Course>().ToListAsync();
+        }
+
+        public async Task<Course> GetByIdAsync(string id)
+        {
+            return await _context.Set<Course>().FindAsync(id);
+        }
+
+        public async Task AddAsync(Course course)
+        {
+            await _context.Set<Course>().AddAsync(course);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateAsync(Course course)
+        {
+            _context.Set<Course>().Update(course);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(string id)
+        {
+            var course = await _context.Set<Course>().FindAsync(id);
+            if (course != null)
+            {
+                _context.Set<Course>().Remove(course);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public async Task<IEnumerable<Course>> GetCoursesBySubCategoryAsync(string subCategoryId)
+        {
+            return await _context.Set<Course>()
+                .Where(c => c.SubCategoryId == subCategoryId)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Course>> GetCoursesByLevelAsync(string courseLevel)
+        {
+            return await _context.Set<Course>()
+                .Where(c => c.CourseLevel == courseLevel)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Course>> GetCoursesByPriceRangeAsync(double minPrice, double maxPrice)
+        {
+            return await _context.Set<Course>()
+                .Where(c => c.Price >= minPrice && c.Price <= maxPrice)
+                .ToListAsync();
+        }
+    }
+
+}

@@ -1,43 +1,59 @@
 ﻿using E_Learning.Models;
 using E_Learning.Repository.IReposatories;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace E_Learning.Repositories.Repository
 {
     public class CategoryRepository : ICategoryRepository
     {
-        private readonly ApplicationDbContext context;
+        private readonly DbContext _context;
 
-        public CategoryRepository(ApplicationDbContext context)
+        public CategoryRepository(DbContext context)
         {
-            this.context = context;
-        }
-
-        
-        public async Task AddAsync(Category entity)
-        {
-            await context.Categories.AddAsync(entity);
-            await context.SaveChangesAsync();
-        }
-        
-        public async Task DeleteAsync(int id)
-        {
-            await context.SaveChangesAsync();
+            _context = context;
         }
 
-        public Task<IEnumerable<Category>> GetAllAsync()
+        public async Task<IEnumerable<Category>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Set<Category>().ToListAsync();
         }
 
-        public Task<Category> GetByIdAsync(string id)
+        public async Task<Category> GetByIdAsync(string id)
         {
-            throw new NotImplementedException();
+            return await _context.Set<Category>().FindAsync(id);
         }
 
-        public Task UpdateAsync(Category entity)
+        public async Task AddAsync(Category category)
         {
-            throw new NotImplementedException();
+            await _context.Set<Category>().AddAsync(category);
+            await _context.SaveChangesAsync();
         }
+
+        public async Task UpdateAsync(Category category)
+        {
+            _context.Set<Category>().Update(category);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(string id)
+        {
+            var category = await _context.Set<Category>().FindAsync(id);
+            if (category != null)
+            {
+                _context.Set<Category>().Remove(category);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public async Task<Category> GetCategoryWithSubCategoriesAsync(string categoryId)
+        {
+            return await _context.Set<Category>()
+                .Include(c => c.SubCategories)
+                .FirstOrDefaultAsync(c => c.Id == categoryId);
+        }
+
+  
     }
+
 }
