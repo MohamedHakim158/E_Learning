@@ -6,9 +6,9 @@ namespace E_Learning.Repositories.Repository
 {
     public class InstructorWithdrawRepository : IInstructorWithdrawRepository
     {
-        private readonly DbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public InstructorWithdrawRepository(DbContext context)
+        public InstructorWithdrawRepository(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -29,20 +29,14 @@ namespace E_Learning.Repositories.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(InstructorWithdraw instructorWithdraw)
+        public async Task UpdateAsync(InstructorWithdraw instructorWithdraw, InstructorWithdraw New)
         {
-            _context.Set<InstructorWithdraw>().Update(instructorWithdraw);
-            await _context.SaveChangesAsync();
+            throw new Exception();
         }
 
         public async Task DeleteAsync(string id)
         {
-            var instructorWithdraw = await _context.Set<InstructorWithdraw>().FindAsync(id);
-            if (instructorWithdraw != null)
-            {
-                _context.Set<InstructorWithdraw>().Remove(instructorWithdraw);
-                await _context.SaveChangesAsync();
-            }
+            throw new Exception();
         }
 
         public async Task<IEnumerable<InstructorWithdraw>> GetWithdrawalsByUserIdAsync(string userId)

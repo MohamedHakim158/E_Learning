@@ -6,9 +6,9 @@ namespace E_Learning.Repositories.Repository
 {
     public class SubCategoryRepository : ISubCategoryRepository
     {
-        private readonly DbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public SubCategoryRepository(DbContext context)
+        public SubCategoryRepository(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -22,9 +22,10 @@ namespace E_Learning.Repositories.Repository
 
         public async Task<SubCategory> GetByIdAsync(string id)
         {
-            return await _context.Set<SubCategory>()
+            var sub = await _context.Set<SubCategory>()
                 .Include(sc => sc.Courses) // Include related courses
                 .FirstOrDefaultAsync(sc => sc.Id == id);
+            return sub!;
         }
 
         public async Task AddAsync(SubCategory subCategory)
@@ -33,9 +34,12 @@ namespace E_Learning.Repositories.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(SubCategory subCategory)
+        public async Task UpdateAsync(SubCategory subCategory1,SubCategory subCategory2)
         {
-            _context.Set<SubCategory>().Update(subCategory);
+            {
+                subCategory1.Title = subCategory2.Title;
+            }
+            _context.Set<SubCategory>().Update(subCategory1);
             await _context.SaveChangesAsync();
         }
 

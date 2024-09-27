@@ -6,9 +6,9 @@ namespace E_Learning.Repositories.Repository
 {
     public class WishListRepository : IWishListRepository
     {
-        private readonly DbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public WishListRepository(DbContext context)
+        public WishListRepository(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -32,9 +32,9 @@ namespace E_Learning.Repositories.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(WishList wishList)
+        public async Task UpdateAsync(WishList wishList1 , WishList wishList2)
         {
-            _context.Set<WishList>().Update(wishList);
+            _context.Set<WishList>().Update(wishList1);
             await _context.SaveChangesAsync();
         }
 

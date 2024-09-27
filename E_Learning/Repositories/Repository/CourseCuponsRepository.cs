@@ -6,9 +6,9 @@ namespace E_Learning.Repositories.Repository
 {
     public class CourseCuponsRepository : ICourseCuponsRepository
     {
-        private readonly DbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public CourseCuponsRepository(DbContext context)
+        public CourseCuponsRepository(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -29,9 +29,15 @@ namespace E_Learning.Repositories.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(CourseCupons courseCupon)
+        public async Task UpdateAsync(CourseCupons OldCupon , CourseCupons NewCupon)
         {
-            _context.Set<CourseCupons>().Update(courseCupon);
+            {
+                OldCupon.ExpireDate = DateTime.Now.AddDays(NewCupon.AvailDuration);
+                OldCupon.UsageLimit = NewCupon.UsageLimit;
+                OldCupon.Code = NewCupon.Code;
+                OldCupon.DiscountPercentage = NewCupon.DiscountPercentage;
+            }
+            _context.Set<CourseCupons>().Update(OldCupon);
             await _context.SaveChangesAsync();
         }
 
@@ -47,8 +53,13 @@ namespace E_Learning.Repositories.Repository
 
         public async Task<CourseCupons> GetByCodeAsync(string code)
         {
-            return await _context.Set<CourseCupons>()
+            var cupon = await _context.Set<CourseCupons>()
                 .FirstOrDefaultAsync(c => c.Code == code);
+            if (cupon.ExpireDate < DateTime.Now)
+            {
+                return null;
+            }
+            return cupon;
         }
 
         public async Task<IEnumerable<CourseCupons>> GetActiveCouponsAsync()
@@ -57,6 +68,8 @@ namespace E_Learning.Repositories.Repository
                 .Where(c => c.ExpireDate > DateTime.Now && c.UsageLimit > c.NumberOfUsages)
                 .ToListAsync();
         }
+
+       
     }
 
 

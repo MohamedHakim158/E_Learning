@@ -8293,19 +8293,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mohammed\\.nuget\\packages\\": {}
+    "C:\\Users\\Mohamed Hakim\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\_Pioneers course\\project\\E_Learning\\E_Learning\\E_Learning.csproj",
+      "projectUniqueName": "F:\\back-end\\Githup\\E_Learning\\E_Learning\\E_Learning.csproj",
       "projectName": "E_Learning",
-      "projectPath": "E:\\_Pioneers course\\project\\E_Learning\\E_Learning\\E_Learning.csproj",
-      "packagesPath": "C:\\Users\\mohammed\\.nuget\\packages\\",
-      "outputPath": "E:\\_Pioneers course\\project\\E_Learning\\E_Learning\\obj\\",
+      "projectPath": "F:\\back-end\\Githup\\E_Learning\\E_Learning\\E_Learning.csproj",
+      "packagesPath": "C:\\Users\\Mohamed Hakim\\.nuget\\packages\\",
+      "outputPath": "F:\\back-end\\Githup\\E_Learning\\E_Learning\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\mohammed\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Mohamed Hakim\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8313,7 +8313,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -8326,11 +8325,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -8397,7 +8391,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.206/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

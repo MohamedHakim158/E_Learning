@@ -7,50 +7,53 @@ namespace E_Learning.Repositories.Repository
 {
     public class CategoryRepository : ICategoryRepository
     {
-        private readonly DbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public CategoryRepository(DbContext context)
+        public CategoryRepository(ApplicationDbContext context)
         {
             _context = context;
         }
 
         public async Task<IEnumerable<Category>> GetAllAsync()
         {
-            return await _context.Set<Category>().ToListAsync();
+            var list = await _context.Categories.ToListAsync();
+            return list;
         }
 
         public async Task<Category> GetByIdAsync(string id)
         {
-            return await _context.Set<Category>().FindAsync(id);
+            var category = await _context.Categories.FirstOrDefaultAsync(p => p.Id == id);
+            return category;
         }
 
         public async Task AddAsync(Category category)
         {
-            await _context.Set<Category>().AddAsync(category);
+            await _context.Categories.AddAsync(category);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(Category category)
+        public async Task UpdateAsync(Category New , Category Old)
         {
-            _context.Set<Category>().Update(category);
+            Old.Name = New.Name;
+            _context.Update(Old);
             await _context.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(string id)
         {
-            var category = await _context.Set<Category>().FindAsync(id);
+            var category = await GetByIdAsync(id);
             if (category != null)
             {
-                _context.Set<Category>().Remove(category);
+                _context.Categories.Remove(category);
                 await _context.SaveChangesAsync();
             }
         }
 
         public async Task<Category> GetCategoryWithSubCategoriesAsync(string categoryId)
         {
-            return await _context.Set<Category>()
-                .Include(c => c.SubCategories)
+            var category = await _context.Categories.Include(c => c.SubCategories)
                 .FirstOrDefaultAsync(c => c.Id == categoryId);
+            return category!;
         }
 
   

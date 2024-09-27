@@ -5,7 +5,7 @@ namespace E_Learning.Repository.IReposatories
     public interface ICourseSectionRepository : IRepository<CourseSection>
     {
         Task<IEnumerable<CourseSection>> GetSectionsByCourseIdAsync(string courseId);
-        Task<IEnumerable<CourseSection>> GetSectionsByOrderAsync(string courseId);
+        
     }
 
 }

@@ -139,6 +139,11 @@ namespace E_Learning.Areas.Authentication.Controllers
             }
             return Ok();
         }
+        public async Task<IActionResult> Logout()
+        {
+            await authService.LogoutAsync();
+            return Ok();
+        }
         #endregion
 
 

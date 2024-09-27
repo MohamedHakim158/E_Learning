@@ -6,9 +6,9 @@ namespace E_Learning.Repositories.Repository
 {
     public class CourseRepository : ICourseRepository
     {
-        private readonly DbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public CourseRepository(DbContext context)
+        public CourseRepository(ApplicationDbContext  context)
         {
             _context = context;
         }
@@ -29,9 +29,14 @@ namespace E_Learning.Repositories.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(Course course)
+        public async Task UpdateAsync(Course old , Course New)
         {
-            _context.Set<Course>().Update(course);
+            {
+                old.CourseLevel = New.CourseLevel;
+                old.Title = New.Title;
+                old.Duration = New.Duration;
+            }
+            _context.Set<Course>().Update(old);
             await _context.SaveChangesAsync();
         }
 
@@ -62,7 +67,7 @@ namespace E_Learning.Repositories.Repository
         public async Task<IEnumerable<Course>> GetCoursesByPriceRangeAsync(double minPrice, double maxPrice)
         {
             return await _context.Set<Course>()
-                .Where(c => c.Price >= minPrice && c.Price <= maxPrice)
+                .Where(c => c.Price  >= minPrice && c.Price <= maxPrice)
                 .ToListAsync();
         }
     }

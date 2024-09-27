@@ -6,9 +6,9 @@ namespace E_Learning.Repositories.Repository
 {
     public class ReviewRepository : IReviewRepository
     {
-        private readonly DbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public ReviewRepository(DbContext context)
+        public ReviewRepository(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -29,9 +29,14 @@ namespace E_Learning.Repositories.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(Review review)
+        public async Task UpdateAsync(Review review1, Review review2)
         {
-            _context.Set<Review>().Update(review);
+            {
+                review1.Evaluation = review2.Evaluation;
+                review1.Date = DateTime.Now;
+                review1.FeedBack = review2.FeedBack;
+            }
+            _context.Set<Review>().Update(review1);
             await _context.SaveChangesAsync();
         }
 
@@ -43,13 +48,6 @@ namespace E_Learning.Repositories.Repository
                 _context.Set<Review>().Remove(review);
                 await _context.SaveChangesAsync();
             }
-        }
-
-        public async Task<IEnumerable<Review>> GetReviewsByUserIdAsync(string userId)
-        {
-            return await _context.Set<Review>()
-                .Where(r => r.UserId == userId)
-                .ToListAsync();
         }
 
         public async Task<IEnumerable<Review>> GetReviewsByCourseIdAsync(string courseId)

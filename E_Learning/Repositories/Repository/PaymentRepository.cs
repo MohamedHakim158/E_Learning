@@ -6,9 +6,9 @@ namespace E_Learning.Repositories.Repository
 {
     public class PaymentRepository : IPaymentRepository
     {
-        private readonly DbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public PaymentRepository(DbContext context)
+        public PaymentRepository(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -29,10 +29,9 @@ namespace E_Learning.Repositories.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(Payment payment)
+        public async Task UpdateAsync(Payment payment , Payment New)
         {
-            _context.Set<Payment>().Update(payment);
-            await _context.SaveChangesAsync();
+            throw new Exception();
         }
 
         public async Task DeleteAsync(string id)

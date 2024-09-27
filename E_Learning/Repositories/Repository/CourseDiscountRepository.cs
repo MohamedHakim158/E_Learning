@@ -6,9 +6,9 @@ namespace E_Learning.Repositories.Repository
 {
     public class CourseDiscountRepository : ICourseDiscountRepository
     {
-        private readonly DbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public CourseDiscountRepository(DbContext context)
+        public CourseDiscountRepository(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -20,7 +20,8 @@ namespace E_Learning.Repositories.Repository
 
         public async Task<CourseDiscount> GetByIdAsync(string id)
         {
-            return await _context.Set<CourseDiscount>().FindAsync(id);
+            var discount = await _context.Set<CourseDiscount>().FindAsync(id);
+            return discount;
         }
 
         public async Task AddAsync(CourseDiscount courseDiscount)
@@ -29,9 +30,14 @@ namespace E_Learning.Repositories.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(CourseDiscount courseDiscount)
+        public async Task UpdateAsync(CourseDiscount OldDiscount , CourseDiscount NewDiscount)
         {
-            _context.Set<CourseDiscount>().Update(courseDiscount);
+            {
+                OldDiscount.ExpireDate = NewDiscount.ExpireDate;
+                OldDiscount.Percentage = NewDiscount.Percentage;
+                OldDiscount.NetPrice = OldDiscount.NetPrice * (100 - NewDiscount.Percentage);
+            }
+            _context.Set<CourseDiscount>().Update(OldDiscount);
             await _context.SaveChangesAsync();
         }
 

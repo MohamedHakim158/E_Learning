@@ -6,9 +6,9 @@ namespace E_Learning.Repositories.Repository
 {
     public class EnrollmentRepository : IEnrollmentRepository
     {
-        private readonly DbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public EnrollmentRepository(DbContext context)
+        public EnrollmentRepository(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -29,10 +29,9 @@ namespace E_Learning.Repositories.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(Enrollment enrollment)
+        public async Task UpdateAsync(Enrollment enrollment , Enrollment enrollment1)
         {
-            _context.Set<Enrollment>().Update(enrollment);
-            await _context.SaveChangesAsync();
+            throw new Exception();
         }
 
         public async Task DeleteAsync(string id)

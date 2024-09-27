@@ -6,9 +6,9 @@ namespace E_Learning.Repositories.Repository
 {
     public class QuizQuestionRepository : IQuizQuestionRepository
     {
-        private readonly DbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public QuizQuestionRepository(DbContext context)
+        public QuizQuestionRepository(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -23,15 +23,21 @@ namespace E_Learning.Repositories.Repository
             return await _context.Set<QuizQuestion>().FindAsync(id);
         }
 
-        public async Task AddAsync(QuizQuestion quizQuestion)
+        public async Task AddAsync(QuizQuestion quizQuestion )
         {
             await _context.Set<QuizQuestion>().AddAsync(quizQuestion);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(QuizQuestion quizQuestion)
+        public async Task UpdateAsync(QuizQuestion Old, QuizQuestion New)
         {
-            _context.Set<QuizQuestion>().Update(quizQuestion);
+            {
+                Old.Text = New.Text;
+                Old.Choices = New.Choices;
+                Old.Order = New.Order;
+                Old.correctAnswer = New.correctAnswer;
+            }
+            _context.Set<QuizQuestion>().Update(Old);
             await _context.SaveChangesAsync();
         }
 

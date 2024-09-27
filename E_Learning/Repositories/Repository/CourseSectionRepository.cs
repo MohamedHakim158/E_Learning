@@ -23,15 +23,19 @@ namespace E_Learning.Repositories.Repository
             return await _context.Set<CourseSection>().FindAsync(id);
         }
 
-        public async Task AddAsync(CourseSection courseSection)
+        public async Task AddAsync(CourseSection section )
         {
-            await _context.Set<CourseSection>().AddAsync(courseSection);
+            await _context.Set<CourseSection>().AddAsync(section);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(CourseSection courseSection)
+        public async Task UpdateAsync(CourseSection Old, CourseSection New)
         {
-            _context.Set<CourseSection>().Update(courseSection);
+            {
+                Old.Title = New.Title;
+                Old.order = New.order;
+            }
+            _context.Set<CourseSection>().Update(Old );
             await _context.SaveChangesAsync();
         }
 
@@ -40,6 +44,7 @@ namespace E_Learning.Repositories.Repository
             var courseSection = await _context.Set<CourseSection>().FindAsync(id);
             if (courseSection != null)
             {
+                //may Edit Order
                 _context.Set<CourseSection>().Remove(courseSection);
                 await _context.SaveChangesAsync();
             }
@@ -49,15 +54,11 @@ namespace E_Learning.Repositories.Repository
         {
             return await _context.Set<CourseSection>()
                 .Where(cs => cs.CourseId == courseId)
+                .OrderBy(cs => cs.order)
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<CourseSection>> GetSectionsByOrderAsync(string courseId)
-        {
-            return await _context.Set<CourseSection>()
-                .Where(cs => cs.CourseId == courseId)
-                .ToListAsync();
-        }
+        
     }
 
 }

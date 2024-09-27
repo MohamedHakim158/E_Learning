@@ -6,9 +6,9 @@ namespace E_Learning.Repositories.Repository
 {
     public class CertificateRepository : ICertificateRepository
     {
-        private readonly DbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public CertificateRepository(DbContext context)
+        public CertificateRepository(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -29,9 +29,12 @@ namespace E_Learning.Repositories.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(Certificate certificate)
+        public async Task UpdateAsync(Certificate old , Certificate New)
         {
-            _context.Set<Certificate>().Update(certificate);
+            old.SerialNumber = New.SerialNumber;
+            old.Type = New.Type;
+            old.IssueTime = DateTime.Now;
+            _context.Set<Certificate>().Update(old  );
             await _context.SaveChangesAsync();
         }
 
@@ -54,9 +57,11 @@ namespace E_Learning.Repositories.Repository
 
         public async Task<Certificate?> GetCertificateByCourseAndUserAsync(string courseId, string userId)
         {
-            return await _context.Set<Certificate>()
+            return await _context.Certificates
                 .FirstOrDefaultAsync(c => c.CourseId == courseId && c.UserId == userId);
         }
+
+        
     }
 
 }

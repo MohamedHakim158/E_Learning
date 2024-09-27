@@ -6,9 +6,9 @@ namespace E_Learning.Repositories.Repository
 {
     public class CoursePreviewRepository : ICoursePreviewRepository
     {
-        private readonly DbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public CoursePreviewRepository(DbContext context)
+        public CoursePreviewRepository(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -29,15 +29,15 @@ namespace E_Learning.Repositories.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(CoursePreview coursePreview)
+        public async Task UpdateAsync(CoursePreview old, CoursePreview New)
         {
-            _context.Set<CoursePreview>().Update(coursePreview);
+            _context.Set<CoursePreview>().Update(old);
             await _context.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(string id)
         {
-            var coursePreview = await _context.Set<CoursePreview>().FindAsync(id);
+            var coursePreview = await GetByIdAsync(id);
             if (coursePreview != null)
             {
                 _context.Set<CoursePreview>().Remove(coursePreview);

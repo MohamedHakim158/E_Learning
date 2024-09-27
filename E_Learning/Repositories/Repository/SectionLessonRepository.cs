@@ -6,9 +6,9 @@ namespace E_Learning.Repositories.Repository
 {
     public class SectionLessonRepository : ISectionLessonRepository
     {
-        private readonly DbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public SectionLessonRepository(DbContext context)
+        public SectionLessonRepository(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -29,9 +29,15 @@ namespace E_Learning.Repositories.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(SectionLessons sectionLesson)
+        public async Task UpdateAsync(SectionLessons Lesson1,SectionLessons Lesson2)
         {
-            _context.Set<SectionLessons>().Update(sectionLesson);
+            {
+                Lesson1.Title = Lesson2.Title;
+                Lesson1.Videourl = Lesson2.Videourl;
+                Lesson1.AttachedFile = Lesson2.AttachedFile;
+                Lesson1.Order = Lesson2.Order;
+            }
+            _context.Set<SectionLessons>().Update(Lesson1);
             await _context.SaveChangesAsync();
         }
 

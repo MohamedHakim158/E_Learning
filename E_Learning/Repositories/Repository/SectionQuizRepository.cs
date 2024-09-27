@@ -6,9 +6,9 @@ namespace E_Learning.Repositories.Repository
 {
     public class SectionQuizRepository : ISectionQuizRepository
     {
-        private readonly DbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public SectionQuizRepository(DbContext context)
+        public SectionQuizRepository(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -22,9 +22,10 @@ namespace E_Learning.Repositories.Repository
 
         public async Task<SectionQuiz> GetByIdAsync(string id)
         {
-            return await _context.Set<SectionQuiz>()
+            var quiz = await _context.Set<SectionQuiz>()
                 .Include(q => q.QuizQuestions) // Include quiz questions
-                .FirstOrDefaultAsync(q => q.Id == id);
+                .FirstOrDefaultAsync(q => q.Id == id)!;
+            return quiz!;
         }
 
         public async Task AddAsync(SectionQuiz sectionQuiz)
@@ -33,9 +34,9 @@ namespace E_Learning.Repositories.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(SectionQuiz sectionQuiz)
+        public async Task UpdateAsync(SectionQuiz sectionQuiz1 , SectionQuiz sectionQuiz2)
         {
-            _context.Set<SectionQuiz>().Update(sectionQuiz);
+            _context.Set<SectionQuiz>().Update(sectionQuiz1);
             await _context.SaveChangesAsync();
         }
 

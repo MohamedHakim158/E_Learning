@@ -4,6 +4,7 @@ using E_Learning.Services.IService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace E_Learning.Services.Service
 {
@@ -49,9 +50,28 @@ namespace E_Learning.Services.Service
             
         }
 
-        public Task<ProcessResult> LoginAsync(LoginRequest model)
+        public async Task<ProcessResult> LoginAsync(LoginRequest model)
         {
-            
+            ProcessResult process = new ProcessResult();
+            var user = await userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                process.Message = "There Is no account for email: " + model.Email;
+                return process;
+            }
+            if (await userManager.CheckPasswordAsync(user, model.Password))
+            {
+                process.Message = "Wrong Password";
+                return process;
+            }
+            await signInManager.SignInAsync(user, isPersistent: model.RememberMe);
+            process.IsSucceded = true;
+            return process;
+        }
+
+        public async Task LogoutAsync()
+        {
+            await signInManager.SignOutAsync();
         }
 
         public async Task<ProcessResult> RegisterAsync(RegisterRequest model)
@@ -75,6 +95,11 @@ namespace E_Learning.Services.Service
                     });
                 }
                 await userManager.AddToRoleAsync(user, model.RegisteredAs);
+                if (await userManager.IsInRoleAsync(user , "Intructor"))
+                {
+                    var claim = new Claim("Balance", "0");
+                    await userManager.AddClaimAsync(user, claim);
+                }
             }
             else
             {
