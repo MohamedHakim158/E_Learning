@@ -12,11 +12,13 @@ namespace E_Learning.Services.Service
         private readonly UserManager<User> userManager;
         private readonly IEmailSender sender;
         private readonly RoleManager<IdentityRole> roleManager;
-        public AuthService(UserManager<User> manager , IEmailSender sender , RoleManager<IdentityRole> roleManager)
+        private readonly SignInManager<User> signInManager;
+        public AuthService(UserManager<User> manager , IEmailSender sender , RoleManager<IdentityRole> roleManager , SignInManager<User> signInManager)
         {
             this.userManager = manager;
             this.sender = sender;
             this.roleManager = roleManager;
+            this.signInManager = signInManager;
         }
 
         public async Task<ProcessResult> ChangePasswordAsync(ChangePasswordRequest model)
@@ -44,6 +46,11 @@ namespace E_Learning.Services.Service
             var user =await userManager.FindByEmailAsync(Email);
             user.EmailConfirmed = true;
             await userManager.UpdateAsync(user);
+            
+        }
+
+        public Task<ProcessResult> LoginAsync(LoginRequest model)
+        {
             
         }
 

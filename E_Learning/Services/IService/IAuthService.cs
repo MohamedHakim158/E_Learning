@@ -9,5 +9,6 @@ namespace E_Learning.Services.IService
         Task<ProcessResult> SendResetPassowrdEmail(ConfrimEmailRequest model);
         Task<ProcessResult> ResetPasswordAsync(ResetPasswordRequest model);
         Task<ProcessResult> ChangePasswordAsync(ChangePasswordRequest model);
+        Task<ProcessResult> LoginAsync(LoginRequest model);
     }
 }

@@ -118,6 +118,29 @@ namespace E_Learning.Areas.Authentication.Controllers
         }
         #endregion
 
+        #region Login & Logout
+        public async Task<IActionResult> ShowLogin()
+        {
+            return Ok();
+        }
+        public async Task<IActionResult> Login(LoginRequest model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await authService.LoginAsync(model);
+                if (result.IsSucceded)
+                {
+                    return Ok();
+                }
+                else
+                {
+
+                }
+            }
+            return Ok();
+        }
+        #endregion
+
 
 
 
