@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\back-end\\.NET projects\\E_Learning\\E_Learning\\E_Learning.csproj": {}
+    "F:\\back-end\\Githup\\E_Learning\\E_Learning\\E_Learning.csproj": {}
   },
   "projects": {
-    "F:\\back-end\\.NET projects\\E_Learning\\E_Learning\\E_Learning.csproj": {
+    "F:\\back-end\\Githup\\E_Learning\\E_Learning\\E_Learning.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\back-end\\.NET projects\\E_Learning\\E_Learning\\E_Learning.csproj",
+        "projectUniqueName": "F:\\back-end\\Githup\\E_Learning\\E_Learning\\E_Learning.csproj",
         "projectName": "E_Learning",
-        "projectPath": "F:\\back-end\\.NET projects\\E_Learning\\E_Learning\\E_Learning.csproj",
+        "projectPath": "F:\\back-end\\Githup\\E_Learning\\E_Learning\\E_Learning.csproj",
         "packagesPath": "C:\\Users\\Mohamed Hakim\\.nuget\\packages\\",
-        "outputPath": "F:\\back-end\\.NET projects\\E_Learning\\E_Learning\\obj\\",
+        "outputPath": "F:\\back-end\\Githup\\E_Learning\\E_Learning\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Mohamed Hakim\\AppData\\Roaming\\NuGet\\NuGet.Config",

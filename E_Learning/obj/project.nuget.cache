@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "i7NNcy+LpVjYgJZBwbeTIuxdrbFJY6uLNfsSBOEtk2mxvnuux7xPkDug22dfeTWnrNrD5WpVzEC++6+qZ8tQcg==",
+  "dgSpecHash": "INF5DTxYvetLdyVVoZ6xyv0IlpzJ8KzNQvAJsV5dxbd85Jzkrqey/yOVNmjb77c8nGe8wgknQSw11Otl1zBKyA==",
   "success": true,
-  "projectFilePath": "F:\\back-end\\.NET projects\\E_Learning\\E_Learning\\E_Learning.csproj",
+  "projectFilePath": "F:\\back-end\\Githup\\E_Learning\\E_Learning\\E_Learning.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Mohamed Hakim\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Mohamed Hakim\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

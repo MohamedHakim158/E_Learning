@@ -14,14 +14,9 @@ namespace E_Learning.Models
         public  string LName { get; set; }
         [DataType(DataType.EmailAddress)]
         public  string Email { get; set; }
-        public string? Addres { get; set; }
         public byte[]? Image { get; set; }
         public DateTime DateJoined { get; set; }
         public DateTime LastLogin { get; set; }
-        [DataType(DataType.PhoneNumber)]
-        public string? PhoneNumber { get; set; }
-        public string? ConfirmEmailCode { get; set; }
-        public string? ResetPasswordCode { get; set; }
         public Enrollment? Enrollment { get; set; }
         
     }

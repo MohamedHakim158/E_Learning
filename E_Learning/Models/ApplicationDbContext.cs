@@ -1,17 +1,21 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 namespace E_Learning.Models
 {
-    public class ApplicationDbContext: IdentityDbContext<User>
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
         public ApplicationDbContext()
         {
-            
+
         }
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options):base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-            
+
+        }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<WishList>().HasKey(p => new { p.UserId, p.CourseId });
+            base.OnModelCreating(builder);
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Course> Courses { get; set; }
@@ -29,7 +33,7 @@ namespace E_Learning.Models
         public DbSet<InstructorWithdraw> InstructorWithdraws { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<WishList> WishLists { get; set; }
-        public DbSet<SubCategory> SubCategories { get; set; }   
+        public DbSet<SubCategory> SubCategories { get; set; }
 
     }
 }

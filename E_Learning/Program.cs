@@ -11,7 +11,7 @@ namespace E_Learning
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            builder.Services.AddControllersWithViews().AddSessionStateTempDataProvider().AddRazorRuntimeCompilation();
             // Customer Services
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
@@ -26,7 +26,10 @@ namespace E_Learning
                 op.Password.RequireNonAlphanumeric = true;
             })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-
+            builder.Services.AddSession(op =>
+            {
+                op.IOTimeout = TimeSpan.FromMinutes(5);
+            });
 
             var app = builder.Build();
 
@@ -36,9 +39,8 @@ namespace E_Learning
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseStaticFiles();
-
             app.UseRouting();
-
+            app.UseSession();
             app.UseAuthorization();
             app.MapControllerRoute(
                   name: "area",

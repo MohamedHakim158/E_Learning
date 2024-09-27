@@ -33,13 +33,9 @@ namespace E_Learning.Migrations
                     FName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
-                    Addres = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Image = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     DateJoined = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastLogin = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ConfirmEmailCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ResetPasswordCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -47,6 +43,7 @@ namespace E_Learning.Migrations
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
                     TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
@@ -443,13 +440,12 @@ namespace E_Learning.Migrations
                 name: "WishLists",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CourseId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WishLists", x => x.Id);
+                    table.PrimaryKey("PK_WishLists", x => new { x.UserId, x.CourseId });
                     table.ForeignKey(
                         name: "FK_WishLists_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -662,11 +658,6 @@ namespace E_Learning.Migrations
                 name: "IX_WishLists_CourseId",
                 table: "WishLists",
                 column: "CourseId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_WishLists_UserId",
-                table: "WishLists",
-                column: "UserId");
         }
 
         /// <inheritdoc />
