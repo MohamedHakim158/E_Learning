@@ -17,8 +17,9 @@ namespace E_Learning.Areas.Authentication.Controllers
         #region Register
         public async Task<IActionResult> Register()
         {
-            return Ok();
+            return View("Register" , new RegisterRequest());
         }
+
         public async Task<IActionResult> SaveRegister(RegisterRequest model)
         {
             if (ModelState.IsValid)
@@ -32,6 +33,9 @@ namespace E_Learning.Areas.Authentication.Controllers
             }
             return Ok();
         }
+
+
+
         #endregion
 
         #region Confirm Email

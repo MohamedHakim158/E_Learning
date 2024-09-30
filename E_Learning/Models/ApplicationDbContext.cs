@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using E_Learning.ViewModels;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 namespace E_Learning.Models
 {
@@ -14,7 +15,10 @@ namespace E_Learning.Models
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<WishList>().HasKey(p => new { p.UserId, p.CourseId });
+            builder.Entity<CourseViewModel>()
+                .ToView("CourseviewModel");
+            builder.Entity<InstructorStatisticsVM>()
+                .ToView("InstructorStats");
             base.OnModelCreating(builder);
         }
         public DbSet<User> Users { get; set; }
@@ -34,6 +38,9 @@ namespace E_Learning.Models
         public DbSet<Review> Reviews { get; set; }
         public DbSet<WishList> WishLists { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
+        public DbSet<DataForInstructor> AdditionalUserData { get; set; }
+        public DbSet<InstructorStatisticsVM> InstructorStatistics { get; set; }
+        public DbSet<CourseViewModel> CourseViewModels { get; set; }
 
     }
 }

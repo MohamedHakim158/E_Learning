@@ -5,8 +5,28 @@
       "PackagePath": "staticwebassets\\E_Learning.bundle.scp.css"
     },
     {
+      "Id": "F:\\back-end\\Githup\\E_Learning\\E_Learning\\wwwroot\\Images\\Courses\\c1.jpg",
+      "PackagePath": "staticwebassets\\Images\\Courses\\c1.jpg"
+    },
+    {
+      "Id": "F:\\back-end\\Githup\\E_Learning\\E_Learning\\wwwroot\\Images\\Courses\\c2.jpg",
+      "PackagePath": "staticwebassets\\Images\\Courses\\c2.jpg"
+    },
+    {
+      "Id": "F:\\back-end\\Githup\\E_Learning\\E_Learning\\wwwroot\\Images\\Courses\\c3.jpg",
+      "PackagePath": "staticwebassets\\Images\\Courses\\c3.jpg"
+    },
+    {
+      "Id": "F:\\back-end\\Githup\\E_Learning\\E_Learning\\wwwroot\\Images\\Layout\\photo2.jpg",
+      "PackagePath": "staticwebassets\\Images\\Layout\\photo2.jpg"
+    },
+    {
       "Id": "F:\\back-end\\Githup\\E_Learning\\E_Learning\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "F:\\back-end\\Githup\\E_Learning\\E_Learning\\wwwroot\\css\\styles.css",
+      "PackagePath": "staticwebassets\\css\\styles.css"
     },
     {
       "Id": "F:\\back-end\\Githup\\E_Learning\\E_Learning\\wwwroot\\favicon.ico",

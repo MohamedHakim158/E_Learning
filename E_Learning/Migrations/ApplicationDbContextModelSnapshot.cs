@@ -42,7 +42,6 @@ namespace E_Learning.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CourseId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("IssueTime")
@@ -88,6 +87,14 @@ namespace E_Learning.Migrations
                     b.Property<int>("Duration")
                         .HasColumnType("int");
 
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("InstructorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Language")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -98,15 +105,25 @@ namespace E_Learning.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SubCategoryId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Summary")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("InstructorId");
 
                     b.HasIndex("SubCategoryId");
 
@@ -189,9 +206,9 @@ namespace E_Learning.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("Video")
+                    b.Property<string>("Videourl")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -221,6 +238,34 @@ namespace E_Learning.Migrations
                     b.HasIndex("CourseId");
 
                     b.ToTable("CourseSections");
+                });
+
+            modelBuilder.Entity("E_Learning.Models.DataForInstructor", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Balance")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Bio")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Profession")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("AdditionalUserData");
                 });
 
             modelBuilder.Entity("E_Learning.Models.Enrollment", b =>
@@ -392,9 +437,9 @@ namespace E_Learning.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("Video")
+                    b.Property<string>("Videourl")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -531,17 +576,119 @@ namespace E_Learning.Migrations
 
             modelBuilder.Entity("E_Learning.Models.WishList", b =>
                 {
-                    b.Property<string>("UserId")
+                    b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CourseId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("UserId", "CourseId");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("CourseId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("WishLists");
+                });
+
+            modelBuilder.Entity("E_Learning.ViewModels.CourseViewModel", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CourseImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("InstructorName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NumOfLessons")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NumOfResults")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Review")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SubCategoryId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Summary")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("level")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("numOfStudents")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("totalHours")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("CourseviewModel", (string)null);
+                });
+
+            modelBuilder.Entity("E_Learning.ViewModels.InstructorStatisticsVM", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Bio")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TotalCourses")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TotalRating")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TotalReviews")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TotalStudents")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("InstructorStats", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -681,9 +828,7 @@ namespace E_Learning.Migrations
                 {
                     b.HasOne("E_Learning.Models.Course", "Course")
                         .WithMany()
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CourseId");
 
                     b.HasOne("E_Learning.Models.User", "User")
                         .WithMany()
@@ -698,6 +843,12 @@ namespace E_Learning.Migrations
 
             modelBuilder.Entity("E_Learning.Models.Course", b =>
                 {
+                    b.HasOne("E_Learning.Models.User", "user")
+                        .WithMany()
+                        .HasForeignKey("InstructorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("E_Learning.Models.SubCategory", "SubCategory")
                         .WithMany("Courses")
                         .HasForeignKey("SubCategoryId")
@@ -705,6 +856,8 @@ namespace E_Learning.Migrations
                         .IsRequired();
 
                     b.Navigation("SubCategory");
+
+                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("E_Learning.Models.CourseCupons", b =>
@@ -747,6 +900,17 @@ namespace E_Learning.Migrations
                         .IsRequired();
 
                     b.Navigation("Course");
+                });
+
+            modelBuilder.Entity("E_Learning.Models.DataForInstructor", b =>
+                {
+                    b.HasOne("E_Learning.Models.User", "User")
+                        .WithOne("DataForInstructor")
+                        .HasForeignKey("E_Learning.Models.DataForInstructor", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("E_Learning.Models.Enrollment", b =>
@@ -864,7 +1028,7 @@ namespace E_Learning.Migrations
             modelBuilder.Entity("E_Learning.Models.WishList", b =>
                 {
                     b.HasOne("E_Learning.Models.Course", "Course")
-                        .WithMany()
+                        .WithMany("WishLists")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -940,6 +1104,8 @@ namespace E_Learning.Migrations
                 {
                     b.Navigation("Previews");
 
+                    b.Navigation("WishLists");
+
                     b.Navigation("courseSections");
                 });
 
@@ -955,6 +1121,8 @@ namespace E_Learning.Migrations
 
             modelBuilder.Entity("E_Learning.Models.User", b =>
                 {
+                    b.Navigation("DataForInstructor");
+
                     b.Navigation("Enrollment");
                 });
 #pragma warning restore 612, 618

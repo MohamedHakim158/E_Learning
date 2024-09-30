@@ -8,7 +8,9 @@ namespace E_Learning.Repositories.Repository
     {
         private readonly ApplicationDbContext _context;
 
+
         public CourseRepository(ApplicationDbContext  context)
+
         {
             _context = context;
         }

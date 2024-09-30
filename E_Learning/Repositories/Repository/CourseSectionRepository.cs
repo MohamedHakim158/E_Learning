@@ -6,9 +6,9 @@ namespace E_Learning.Repositories.Repository
 {
     public class CourseSectionRepository : ICourseSectionRepository
     {
-        private readonly DbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public CourseSectionRepository(DbContext context)
+        public CourseSectionRepository(ApplicationDbContext context)
         {
             _context = context;
         }

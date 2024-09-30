@@ -18,6 +18,7 @@ namespace E_Learning.Models
         public DateTime DateJoined { get; set; }
         public DateTime LastLogin { get; set; }
         public Enrollment? Enrollment { get; set; }
+        public DataForInstructor? DataForInstructor { get; set; }
         
     }
 }

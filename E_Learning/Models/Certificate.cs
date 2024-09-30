@@ -9,10 +9,10 @@ namespace E_Learning.Models
         public string SerialNumber { get; set; }
         public DateTime IssueTime { get; set; }
         [ForeignKey("Course")]
-        public string CourseId  { get; set; }
+        public string? CourseId  { get; set; }
         [ForeignKey("User")]
         public string UserId { get; set; }
         public  User User { get; set; }
-        public Course Course { get; set; }
+        public Course? Course { get; set; }
     }
 }
