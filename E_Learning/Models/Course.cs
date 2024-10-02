@@ -9,7 +9,7 @@ namespace E_Learning.Models
         public string Title { get; set; }
         public  string Description { get; set; }
         public string Language { get; set; }
-        public int Duration { get; set; }
+        public double Duration { get; set; }
         public string Summary { get; set; }
         public string Status { get; set; }
         public double Price { get; set; }

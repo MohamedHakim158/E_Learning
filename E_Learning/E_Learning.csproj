@@ -25,12 +25,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\" />
     <Folder Include="Areas\Authentication\Data\" />
     <Folder Include="Areas\Authentication\Views\" />
     <Folder Include="Areas\Course\Controllers\" />
     <Folder Include="Areas\Course\Data\" />
     <Folder Include="Areas\Course\Models\" />
     <Folder Include="Areas\Course\Views\" />
+    <Folder Include="Areas\Student\Controllers\" />
+    <Folder Include="Areas\Student\Data\" />
+    <Folder Include="Areas\Student\Models\" />
+    <Folder Include="Areas\Student\Views\" />
     <Folder Include="wwwroot\Images\Courses\" />
   </ItemGroup>
 

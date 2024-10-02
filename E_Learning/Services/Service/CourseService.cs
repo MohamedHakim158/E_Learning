@@ -8,10 +8,12 @@ namespace E_Learning.Services.Service
     public class CourseService : ICourseService
     {
         private readonly ICourseViewModelRepository courseView;
+        private readonly ICourseRepository courseRepository;
 
-        public CourseService(ICourseViewModelRepository courseView)
+        public CourseService(ICourseViewModelRepository courseView,ICourseRepository courseRepository)
         {
             this.courseView = courseView;
+            this.courseRepository = courseRepository;
         }
         public async Task<List<CourseViewModel>> GetAllCourses()
         {
@@ -23,5 +25,23 @@ namespace E_Learning.Services.Service
             return await courseView.GetCourseViewModelsForsubcategory(subCategoryId);
         }
 
+        public async Task<List<CourseViewModel>> GetPendingCourses()
+        {
+            var courses = await courseView.GetPendingCourses();
+            return courses;
+        }
+        public async Task UpdateCourseStatus(string CourseId , string Status)
+        {
+            await courseRepository.UpdateCourseStatus(CourseId, Status);
+        }
+        public async Task<List<CourseViewModel>> GetTopRatedCourses()
+        {
+            return await courseView.GetTopRatedCourses();
+        }
+        public async Task<List<CourseViewModel>> GetBestSeller()
+        {
+            var courses = await courseView.GetBestSellerCourses();
+            return courses;
+        }
     }
 }

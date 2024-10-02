@@ -6,6 +6,10 @@ namespace E_Learning.Services.IService
     {
         Task<List<CourseViewModel>> GetAllCourses();
         Task<List<CourseViewModel>> GetCoursesWithSubCategory(string subCategoryId);
+        Task<List<CourseViewModel>> GetPendingCourses();
+        Task UpdateCourseStatus(string courseId, string status);
+        Task<List<CourseViewModel>> GetBestSeller();
+        Task<List<CourseViewModel>> GetTopRatedCourses();
         //Task<List<CourseViewModel>> AddFilterCoursewithRating(int minRating , string subCategoryId);
         //Task<List<CourseViewModel>> AddFilterCourseWithDuration (int minDuration , int maxDuration ,string subCategoryId);
         //Task<List<CourseViewModel>> AddFilterCourseWithLanguage(string language , string subCategoryId);

@@ -1,7 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "F:\\back-end\\Githup\\E_Learning\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A980BA55-570C-44BF-B824-92B01EFE7D64}|E_Learning\\E_Learning.csproj|f:\\back-end\\githup\\e_learning\\e_learning\\services\\iservice\\istudentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A980BA55-570C-44BF-B824-92B01EFE7D64}|E_Learning\\E_Learning.csproj|solutionrelative:e_learning\\services\\iservice\\istudentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -30,6 +35,19 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{fbcae063-e2c0-4ab1-a516-996ea3dafb72}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "IStudentRepository.cs",
+              "DocumentMoniker": "F:\\back-end\\Githup\\E_Learning\\E_Learning\\Services\\IService\\IStudentRepository.cs",
+              "RelativeDocumentMoniker": "E_Learning\\Services\\IService\\IStudentRepository.cs",
+              "ToolTip": "F:\\back-end\\Githup\\E_Learning\\E_Learning\\Services\\IService\\IStudentRepository.cs",
+              "RelativeToolTip": "E_Learning\\Services\\IService\\IStudentRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-02T23:26:44.53Z",
+              "EditorCaption": ""
             }
           ]
         },

@@ -13,6 +13,13 @@ namespace E_Learning.Repositories.Repository
         {
             this.context = context;
         }
+
+        public async Task<List<CourseViewModel>> GetBestSellerCourses()
+        {
+            var courses = await context.CourseViewModels.Where(p=> p.numOfStudents > 1000).OrderBy(p=>p.numOfStudents).ToListAsync();
+            return courses;
+        }
+
         public async Task<List<CourseViewModel>> GetCourseViewModels()
         {
             return await context.CourseViewModels.ToListAsync();
@@ -21,6 +28,17 @@ namespace E_Learning.Repositories.Repository
         public async Task<List<CourseViewModel>> GetCourseViewModelsForsubcategory(string subCategoryId)
         {
             return await context.CourseViewModels.Where(C => C.SubCategoryId == subCategoryId).ToListAsync();
+        }
+
+        public async Task<List<CourseViewModel>> GetPendingCourses()
+        {
+            var courses = await context.CourseViewModels.Where(p => p.Status == "Pending").ToListAsync();
+            return courses;
+        }
+        public async Task<List<CourseViewModel>> GetTopRatedCourses()
+        {
+            var courses = await context.CourseViewModels.Where(p => p.Review > 4.5).ToListAsync();
+            return courses;
         }
     }
 }

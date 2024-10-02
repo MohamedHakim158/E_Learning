@@ -7,9 +7,10 @@
         public string Summary { get; set; }
         public string Description { get; set; }
         public string InstructorName { get; set; }
-        public int Review { get; set; }
+        public string Status {  get; set; }
+        public double Review { get; set; }
         public string SubCategoryId { get; set; }
-        public decimal totalHours { get; set; }
+        public double totalHours { get; set; }
         public string NumOfLessons { get; set; }
         public string level { get; set; }
         public int numOfStudents { get; set; }

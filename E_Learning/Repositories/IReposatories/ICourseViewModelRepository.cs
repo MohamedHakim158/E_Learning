@@ -6,5 +6,8 @@ namespace E_Learning.Repositories.IReposatories
     {
         Task<List<CourseViewModel>> GetCourseViewModelsForsubcategory(string subCategory);
         Task<List<CourseViewModel>> GetCourseViewModels();
+        Task<List<CourseViewModel>> GetPendingCourses();
+        Task<List<CourseViewModel>> GetBestSellerCourses();
+        Task<List<CourseViewModel>> GetTopRatedCourses();
     }
 }
