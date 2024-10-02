@@ -1,41 +1,103 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="">
-</head>
-<body>
-    <div class="wrapper">
-        <span class="icon-close"><ion-icon name="close"></ion-icon></span>
-        <div class="form-box login">
-            <h2>login</h2>
-            <form action="#">
-                <div class="input-box">
-                    <span class="icon"><ion-icon name="mail"></ion-icon></span>
-                    <input type="email" required>
-                    <label>Email</label>
-                </div>
-                <div class="input-box">
-                    <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
-                    <input type="password" required>
-                    <label>Password</label>
-                </div>
-                <div class="remember-forgot">
-                    <label><input type="checkbox">Remember me</label>
-                    <a href="#">Forgot Password?</a>
-                </div>
-                <button type="submit" class="btn">Login</button>
-                <div class="login-register">
-                    <p>Don't have an accoun? <a href="#" class="register-link">Register</a></p>
-            </form>
+﻿@using E_Learning.Areas.Authentication.Models
+@model LoginRequest
+<div class="body">
+    <div class="login-container">
+        <h2>Login</h2>
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <form asp-action="CheckLogin" asp-controller="Account" asp-area="Authentication" method="post">
+            <div class="input-group">
+                <label asp-for="Email">Email Address</label>
+                <input type="text" asp-for="Email" required>
+                <span class="text-danger" asp-validation-for="Email"></span>
+            </div>
+            <div class="input-group">
+                <label asp-for="Password"></label>
+                <input type="password" asp-for="Password" required>
+                <span class="text-danger" asp-validation-for="Password"></span>
+            </div>
+            <div class="remember-me">
+                <label asp-for="RememberMe"></label>
+                <input type="checkbox" asp-for="RememberMe" >
+            </div>
+            <button type="submit" class="submit-btn">Login</button>
+        </form>
+        <div class="register-link">
+            <a asp-action="EnterEmailForForget" asp-controller="Account" asp-area="Authentication">Forget Password?</a>
         </div>
-    </div>
+        <div class="register-link">
+            <p>Don't have an account? <a asp-action="Register" asp-controller="Account" asp-area="Authentication">Register here</a></p>
+        </div>
 
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-</body>
-</html>
+    </div>
+</div>
+<style>
+    .body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .login-container {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 400px;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        margin-top: 10px;
+    }
+
+    .input-group {
+        margin: 20px;
+    }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .input-group input {
+            width: 350px;
+            margin-left: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+     .remember-me{
+         padding:20px;
+     }
+
+    .submit-btn {
+        text-align: center;
+        margin: 20px;
+        width: 300px;
+        padding: 15px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .submit-btn:hover {
+            background-color: #218838;
+        }
+
+    .register-link a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+</style>

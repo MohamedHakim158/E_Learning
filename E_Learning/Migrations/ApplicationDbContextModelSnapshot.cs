@@ -249,11 +249,9 @@ namespace E_Learning.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Bio")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Profession")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
@@ -657,6 +655,10 @@ namespace E_Learning.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("AverageRating")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Bio")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -670,10 +672,6 @@ namespace E_Learning.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TotalCourses")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TotalRating")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

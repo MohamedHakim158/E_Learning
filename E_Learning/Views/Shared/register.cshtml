@@ -1,55 +1,149 @@
 ﻿@using E_Learning.Areas.Authentication.Models
 @model RegisterRequest
-@{
-    Layout = null;
-}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-    <link rel="stylesheet" href="../wwwroot/css/styles.css">
-</head>
-
-<body>
-    <div class="wrapper">
-        <span class="icon-close"><ion-icon name="close"></ion-icon></span>
-        <div class="form-box">
+<div class="body">
+    <div class="register-container">
             <h2>Register</h2>
-            <form action="#">
-                <div class="input-box">
-                    <span class="icon"><ion-icon name="person"></ion-icon></ion-icon></span>
-                    <input type="text" required >
-                    <label>UserName</label>
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <form asp-action="SaveRegister" asp-controller="Account" asp-area="Authentication" method="post">
+                <div class="input-group">
+                    <label asp-for="FName">First Name</label>
+                    <input type="text" asp-for="FName" required>
+                    <span class="text-danger" asp-validation-for="FName"></span>
                 </div>
-                <div class="input-box">
-                    <span class="icon"><ion-icon name="mail"></ion-icon></span>
-                    <input type="email" required>
-                    <label>Email</label>
+                <div class="input-group">
+                    <label asp-for="LName">Last Name</label>
+                    <input type="text" asp-for="LName" required>
+                    <span class="text-danger" asp-validation-for="LName"></span>
+                </div>
+            <div class="input-group">
+                <label asp-for="UserName">UserName</label>
+                <input type="text" asp-for="UserName" required>
+                <span class="text-danger" asp-validation-for="UserName"></span>
+            </div>
+                <div class="input-group">
+                    <label asp-for="Email">Email Address</label>
+                    <input type="email" asp-for="Email" required>
+                    <span class="text-danger" asp-validation-for="Email"></span>
+                </div>
+                <div class="input-group">
+                    <label asp-for="Password">Password</label>
+                    <input type="password" asp-for="Password" required>
+                    <span class="text-danger" asp-validation-for="Password"></span>
                 </div>
 
-                <div class="input-box">
-                    <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
-                    <input type="password" required>
-                    <label>Password</label>
+                <div class="input-group">
+                    <label for="role-selection">Register as</label>
+                    <div class="role-selection" id="role-selection">
+                        <div class="role" id="user-role" onclick="selectRole('user')">User</div>
+                        <div class="role" id="instructor-role" onclick="selectRole('instructor')">Instructor</div>
+                    </div>
                 </div>
-                <div class="remember-forgot">
-                    <label><input type="checkbox">I agree to the terms & conditions</label>
-                    <a href="#"></a>
-                </div>
-                <button type="submit" class="btn">Register</button>
-                <div class="login-register">
-                    <p>Already have an accoun? <a href="#" class="login-link">Login </a></p>
-                </div>
+                <span class="text-danger" asp-validation-for="RegisteredAs"></span>
+
+                <input type="hidden" name="RegisteredAs" id="role-input" value="">
+
+                <button type="submit" class="submit-btn">Register</button>
             </form>
+        <div class="login-link">
+            <p>Already have an account? <a asp-action="Login" asp-controller="Account" asp-area="Authentication">Login here</a></p>
         </div>
+         
     </div>
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-</body>
+</div>
 
 
-</html>
+<script>
+    function selectRole(role) {
+        document.getElementById('user-role').classList.remove('active');
+        document.getElementById('instructor-role').classList.remove('active');
+        document.getElementById(role + '-role').classList.add('active');
+        document.getElementById('role-input').value = role;
+    }
+
+   
+</script>
+
+<style>
+   .body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .register-container {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 400px;
+    }
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        margin-top:10px;
+    }
+    .input-group {
+        margin: 20px;
+    }
+    .input-group label {
+        display: block;
+        margin-bottom: 10px;
+    }
+    .input-group input {
+        width:350px;
+        margin-left:20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .role-selection {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .role-selection label{
+        display:block;
+    }
+    .role {
+        width: 100px;
+        padding: 15px;
+        margin:20px;
+        background-color: #f1f1f1;
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .role.active {
+        border: 2px solid #007bff;
+        background-color: #e7f0ff;
+    }
+     .submit-btn {
+        text-align:center;
+        margin:20px;
+        width:300px;
+        padding: 15px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .submit-btn:hover {
+        background-color: #218838;
+    }
+    .login-link a {
+        color: #007bff;
+        text-decoration: none;
+    }
+     .login-link a:hover {
+        text-decoration: underline;
+    }
+      
+    
+</style>

@@ -1,21 +1,17 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Day3</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Day3.styles.css" asp-append-version="true" />
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-        }
-
-        /* Navbar styling */
         .navbar {
             background-color: #2c3e50;
             padding: 15px;
+            margin-bottom:20px;
             display: flex;
             align-items: center;
         }
@@ -207,13 +203,14 @@
             color: white;
             text-decoration: none;
         }
+
         /* Dropdown menu hidden initially */
         .dropdown {
             display: none;
             position: absolute;
             top: 37px;
             right: 0;
-            width: 300px;
+            width: 250px;
             background-color: #ecf0f1;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
             z-index: 1;
@@ -261,89 +258,89 @@
             .dropdown div:last-child {
                 border-bottom: none;
             }
-
     </style>
-    <title>LearnSphere</title>
 </head>
-
 <body>
-    <!-- Top navbar -->
-    <nav>
-        <div class="navbar">
-            <!-- Left part of the navbar -->
-            <div class="navbar-left">
-                <a href="#" class="learn-sphere">Learn<span class="sphere">Sphere</span></a>
+    <header>
+        <nav class="navbar"">
+                <div class="navbar-left">
+                    <a href="#" class="learn-sphere">Learn<span class="sphere">Sphere</span></a>
 
-                <!-- Categories with subcategories -->
-                <div class="categories">
-                    <span class="learn-sphere" style="font-size: 18px;">Categories</span>
-                    <div class="dropdown-content">
-                        <div class="subcategory">
-                            <a href="#">Programming</a>
-                            <div class="sub-dropdown">
-                                <a href="#">Web Development</a>
-                                <a href="#">Mobile Development</a>
-                                <a href="#">Data Science</a>
+                    <!-- Categories with subcategories -->
+                    <div class="categories">
+                        <span class="learn-sphere" style="font-size: 18px;">Categories</span>
+                        <div class="dropdown-content">
+                            <div class="subcategory">
+                                <a href="#">Programming</a>
+                                <div class="sub-dropdown">
+                                    <a href="#">Web Development</a>
+                                    <a href="#">Mobile Development</a>
+                                    <a href="#">Data Science</a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="subcategory">
-                            <a href="#">Design</a>
-                            <div class="sub-dropdown">
-                                <a href="#">Graphic Design</a>
-                                <a href="#">UI/UX</a>
+                            <div class="subcategory">
+                                <a href="#">Design</a>
+                                <div class="sub-dropdown">
+                                    <a href="#">Graphic Design</a>
+                                    <a href="#">UI/UX</a>
+                                </div>
                             </div>
+                            <a href="#">Marketing</a>
+                            <a href="#">Business</a>
                         </div>
-                        <a href="#">Marketing</a>
-                        <a href="#">Business</a>
                     </div>
                 </div>
-            </div>
 
-            <!-- Search bar in the center -->
-            <div class="search-container">
-                <input type="text" class="search-bar" placeholder="Search...">
-            </div>
-
-            <!-- Right part of the navbar -->
-            <div class="navbar-right">
-                <a href="#" class="my-learning">My Learning</a>
-
-                <!-- Authentication links (Login and Signup) -->
-                <div class="auth-links">
-                    <a href="#">Login</a>
-                    <a href="#">Sign Up</a>
+                <!-- Search bar in the center -->
+                <div class="search-container">
+                    <input type="text" class="search-bar" placeholder="Search...">
                 </div>
 
-                <!-- User profile with initials -->
-                <div class="user-profile">MH
-                    <div class="dropdown">
-                        <p>Weclome Mohamed Hakim</p>
-                        <hr>
-                        <a href="#">Profile</a>
-                        <hr>
-                        <a href="#" id="settings-link">Account Settings</a>
-                        <a href="#">Payout & Tax</a>
-                        <hr>
-                        <a href="#" id="language-link">Language</a>
-                        <hr>
-                        <a href="#">Logout</a>
+                <!-- Right part of the navbar -->
+                <div class="navbar-right">
+                    <a href="#" class="my-learning">My Learning</a>
+
+                    <!-- Authentication links (Login and Signup) -->
+                    <div class="auth-links">
+                    <a href="/Account/Login?area=Authentication">Login</a>
+                    <a href="/Account/Register?area=Authentication">Sign Up</a>
+                    </div>
+
+                    <!-- User profile with initials -->
+                    <div class="user-profile">
+                        AB
+                        <div class="dropdown">
+                            <p>Weclome Mohamed Hakim</p>
+                            <hr>
+                            <a href="#">Profile</a>
+                            <hr>
+                            <a href="#" id="settings-link">Account Settings</a>
+                            <a href="#">Payout & Tax</a>
+                            <hr>
+                            <a href="#" id="language-link">Language</a>
+                            <hr>
+                        <a href="/Account/Logout?area=Authentication">Logout</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Placeholder for view content -->
-    <div style="min-height: calc(100vh - 300px);">
-        <!-- Adjust min-height based on header and footer height -->
-        @RenderBody() <!-- This is where the view content will be injected -->
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" style="min-height: calc(100vh - 300px);">
+            @RenderBody()
+        </main>
     </div>
 
-    @{
-        Html.RenderPartial("FooterPartial");
-    };
-
-
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            @{
+                Html.RenderPartial("FooterPartial");
+            }
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
-
 </html>

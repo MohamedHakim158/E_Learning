@@ -947,7 +947,6 @@ F:\back-end\Githup\E_Learning\E_Learning\bin\Debug\net8.0\System.Reflection.Meta
 F:\back-end\Githup\E_Learning\E_Learning\bin\Debug\net8.0\System.Runtime.Caching.dll
 F:\back-end\Githup\E_Learning\E_Learning\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
 F:\back-end\Githup\E_Learning\E_Learning\bin\Debug\net8.0\System.Security.Permissions.dll
-F:\back-end\Githup\E_Learning\E_Learning\bin\Debug\net8.0\System.Text.Json.dll
 F:\back-end\Githup\E_Learning\E_Learning\bin\Debug\net8.0\System.Windows.Extensions.dll
 F:\back-end\Githup\E_Learning\E_Learning\bin\Debug\net8.0\af\Humanizer.resources.dll
 F:\back-end\Githup\E_Learning\E_Learning\bin\Debug\net8.0\ar\Humanizer.resources.dll
@@ -1119,7 +1118,6 @@ F:\back-end\Githup\E_Learning\E_Learning\obj\Debug\net8.0\staticwebassets.pack.j
 F:\back-end\Githup\E_Learning\E_Learning\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 F:\back-end\Githup\E_Learning\E_Learning\obj\Debug\net8.0\scopedcss\bundle\E_Learning.styles.css
 F:\back-end\Githup\E_Learning\E_Learning\obj\Debug\net8.0\scopedcss\projectbundle\E_Learning.bundle.scp.css
-F:\back-end\Githup\E_Learning\E_Learning\obj\Debug\net8.0\E_Learning.csproj.CopyComplete
 F:\back-end\Githup\E_Learning\E_Learning\obj\Debug\net8.0\E_Learning.dll
 F:\back-end\Githup\E_Learning\E_Learning\obj\Debug\net8.0\refint\E_Learning.dll
 F:\back-end\Githup\E_Learning\E_Learning\obj\Debug\net8.0\E_Learning.pdb
@@ -2253,3 +2251,15 @@ F:\back-end\Githup\New folder\E_Learning\E_Learning\obj\Debug\net8.0\refint\E_Le
 F:\back-end\Githup\New folder\E_Learning\E_Learning\obj\Debug\net8.0\E_Learning.pdb
 F:\back-end\Githup\New folder\E_Learning\E_Learning\obj\Debug\net8.0\E_Learning.genruntimeconfig.cache
 F:\back-end\Githup\New folder\E_Learning\E_Learning\obj\Debug\net8.0\ref\E_Learning.dll
+F:\back-end\Githup\E_Learning\E_Learning\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Authorization.dll
+F:\back-end\Githup\E_Learning\E_Learning\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Components.dll
+F:\back-end\Githup\E_Learning\E_Learning\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Components.Forms.dll
+F:\back-end\Githup\E_Learning\E_Learning\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Components.Web.dll
+F:\back-end\Githup\E_Learning\E_Learning\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Cryptography.Internal.dll
+F:\back-end\Githup\E_Learning\E_Learning\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+F:\back-end\Githup\E_Learning\E_Learning\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Metadata.dll
+F:\back-end\Githup\E_Learning\E_Learning\bin\Debug\net8.0\refs\Microsoft.Extensions.Identity.Core.dll
+F:\back-end\Githup\E_Learning\E_Learning\bin\Debug\net8.0\refs\Microsoft.Extensions.Identity.Stores.dll
+F:\back-end\Githup\E_Learning\E_Learning\bin\Debug\net8.0\refs\Microsoft.JSInterop.dll
+F:\back-end\Githup\E_Learning\E_Learning\bin\Debug\net8.0\refs\System.Text.Json.dll
+F:\back-end\Githup\E_Learning\E_Learning\obj\Debug\net8.0\E_Learning.csproj.Up2Date

@@ -1,5 +1,6 @@
 ﻿using E_Learning.Areas.Authentication.Models;
 using E_Learning.Models;
+using E_Learning.Repositories.IReposatories;
 using E_Learning.Services.IService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -14,18 +15,25 @@ namespace E_Learning.Services.Service
         private readonly IEmailSender sender;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly SignInManager<User> signInManager;
-        public AuthService(UserManager<User> manager , IEmailSender sender , RoleManager<IdentityRole> roleManager , SignInManager<User> signInManager)
+
+        private readonly IDataForInstructor DataForInstructor;
+        public AuthService(UserManager<User> manager , IEmailSender sender , RoleManager<IdentityRole> roleManager ,
+            SignInManager<User> signInManager , IDataForInstructor dataForInstructor , IUserRepository userRepository)
         {
             this.userManager = manager;
             this.sender = sender;
             this.roleManager = roleManager;
             this.signInManager = signInManager;
+            this.DataForInstructor = dataForInstructor;
+            UserRepository = userRepository;
         }
+
+        public IUserRepository UserRepository { get; }
 
         public async Task<ProcessResult> ChangePasswordAsync(ChangePasswordRequest model)
         {
             ProcessResult process = new ProcessResult();
-            var user =await userManager.FindByEmailAsync(model.Email);
+            var user =await UserRepository.GetByEmail(model.Email);
             if (user != null)
             {
                 var token = await userManager.GeneratePasswordResetTokenAsync(user);
@@ -42,24 +50,46 @@ namespace E_Learning.Services.Service
             return new ProcessResult();
         }
 
-        public async Task ConfirmEmailAsync(string Email)
+        public async Task<bool> CheckEmailExist(string Email)
         {
-            var user =await userManager.FindByEmailAsync(Email);
-            user.EmailConfirmed = true;
-            await userManager.UpdateAsync(user);
-            
+            var user = await UserRepository.GetByEmail(Email) ;
+            return user != null;
+        }
+
+        public async Task<bool> CheckUserNameTaken(string UserName)
+        {
+            var user = await userManager.FindByNameAsync(UserName);
+            return user != null;
+        }
+
+        public async Task<ProcessResult> ConfirmEmailAsync(string Email)
+        {
+            var user = await UserRepository.GetByEmail(Email);
+            if(user != null)
+            {
+                var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                await userManager.ConfirmEmailAsync(user, token);
+                await userManager.UpdateAsync(user);
+                return new ProcessResult { IsSucceded = true };
+            }
+            return new ProcessResult { IsSucceded = false, Message = "Error confirming email" };
+         }
+
+        public async Task<bool> EmailConfirmed(string Email)
+        {
+            var user = await UserRepository.GetByEmail(Email);
+            if (user != null)
+            {
+                return await userManager.IsEmailConfirmedAsync(user);
+            }
+            return false;
         }
 
         public async Task<ProcessResult> LoginAsync(LoginRequest model)
         {
             ProcessResult process = new ProcessResult();
-            var user = await userManager.FindByEmailAsync(model.Email);
-            if (user == null)
-            {
-                process.Message = "There Is no account for email: " + model.Email;
-                return process;
-            }
-            if (await userManager.CheckPasswordAsync(user, model.Password))
+            var user = await UserRepository.GetByEmail(model.Email);
+            if (! await userManager.CheckPasswordAsync(user!, model.Password))
             {
                 process.Message = "Wrong Password";
                 return process;
@@ -79,8 +109,10 @@ namespace E_Learning.Services.Service
             var user = new User
             {
                 Email = model.Email,
+                UserName = model.UserName,
                 FName = model.FName,
                 LName = model.LName,
+                DateJoined = DateTime.Now
             };
             ProcessResult process = new ProcessResult();
             var result = await userManager.CreateAsync(user , model.Password);
@@ -95,10 +127,9 @@ namespace E_Learning.Services.Service
                     });
                 }
                 await userManager.AddToRoleAsync(user, model.RegisteredAs);
-                if (await userManager.IsInRoleAsync(user , "Intructor"))
+                if (await userManager.IsInRoleAsync(user , "instructor"))
                 {
-                    var claim = new Claim("Balance", "0");
-                    await userManager.AddClaimAsync(user, claim);
+                    await DataForInstructor.AddAsync(new DataForInstructor { Balance=0,UserId = user.Id});
                 }
             }
             else
@@ -114,7 +145,7 @@ namespace E_Learning.Services.Service
 
         public async Task<ProcessResult> ResetPasswordAsync([FromBody]ResetPasswordRequest model)
         {
-            var user = await userManager.FindByEmailAsync(model.Email!);
+            var user = await UserRepository.GetByEmail(model.Email!);
             if (user != null)
             {
                 var token = await userManager.GeneratePasswordResetTokenAsync(user);
@@ -133,7 +164,7 @@ namespace E_Learning.Services.Service
             }
             return  new ProcessResult { };
         }
-
+        
         public async Task<ProcessResult> SendConfirmationEmailAsync(ConfrimEmailRequest model)
         {
             var subject = "Confirmation Email";
@@ -154,7 +185,7 @@ namespace E_Learning.Services.Service
 
         private async Task<ProcessResult> GenerateEmailAsync(string Email , string subject , string body)
         {
-            var user = await userManager.FindByEmailAsync(Email);
+            var user = await UserRepository.GetByEmail(Email);
                 try
             {
                 await sender.SendEmailAsync(Email, subject, body);

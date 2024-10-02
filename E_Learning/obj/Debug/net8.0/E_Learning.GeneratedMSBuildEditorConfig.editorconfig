@@ -42,6 +42,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEFyZWFfSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[F:/back-end/Githup/E_Learning/E_Learning/Views/Shared/AuthEmail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEF1dGhFbWFpbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/back-end/Githup/E_Learning/E_Learning/Views/Shared/ConfirmEmail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbmZpcm1FbWFpbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [F:/back-end/Githup/E_Learning/E_Learning/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -56,6 +64,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [F:/back-end/Githup/E_Learning/E_Learning/Views/Shared/register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXHJlZ2lzdGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/back-end/Githup/E_Learning/E_Learning/Views/Shared/ResetPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFJlc2V0UGFzc3dvcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [F:/back-end/Githup/E_Learning/E_Learning/Views/Shared/_ValidationScriptsPartial.cshtml]
