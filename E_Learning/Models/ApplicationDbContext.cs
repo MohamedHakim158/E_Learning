@@ -1,4 +1,5 @@
-﻿using E_Learning.ViewModels;
+﻿using E_Learning.Areas.Course.Models;
+using E_Learning.ViewModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 namespace E_Learning.Models
@@ -15,11 +16,20 @@ namespace E_Learning.Models
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<CourseViewModel>()
+            builder.Entity<CourseView>()
                 .ToView("CourseviewModel");
             builder.Entity<InstructorStatisticsVM>()
                 .ToView("InstructorStats");
+            builder.Entity<CourseReviewView>()
+                .HasNoKey()
+                .ToView("CourseReviewViewModel");
             base.OnModelCreating(builder);
+            /////////////////////////////////////////
+
+            builder.Entity<UserAccount>()
+                .HasKey(ua => new {ua.UserID , ua.SocialMediaID});
+
+
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Course> Courses { get; set; }
@@ -38,9 +48,15 @@ namespace E_Learning.Models
         public DbSet<Review> Reviews { get; set; }
         public DbSet<WishList> WishLists { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
+        public DbSet<SocialMedia> socialMedias { get; set; }
+        public DbSet<UserAccount> userAccounts { get; set; }
+        public DbSet<DataForInstructor> DataForInstructors { get; set; }
+
+        //Views
         public DbSet<DataForInstructor> AdditionalUserData { get; set; }
         public DbSet<InstructorStatisticsVM> InstructorStatistics { get; set; }
-        public DbSet<CourseViewModel> CourseViewModels { get; set; }
-
+        public DbSet<CourseView> CourseViewModels { get; set; }
+        public DbSet<CourseReviewView> courseReviewViewModels { get; set; }
+       
     }
 }

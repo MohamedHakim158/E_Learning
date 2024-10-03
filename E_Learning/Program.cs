@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using E_Learning.Areas.Home.Data;
+using E_Learning.Areas.Course.Data.Repositories;
+using E_Learning.Areas.Course.Data.Services;
+using E_Learning.Repositories.IReposatories;
 
 namespace E_Learning
 {
@@ -27,14 +30,24 @@ namespace E_Learning
 
             builder.Services.AddSingleton<IEmailSender>(new EmailService());
 
-
+            #region Inject Data
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<ICourseRepository,CourseRepository>();
             builder.Services.AddScoped<ICourseCardService, CourseCardService>();
-           
+            builder.Services.AddScoped<ICourseReviewRepository, CourseReviewRepository>();
+            builder.Services.AddScoped<ICourseViewRepository,CourseViewRepository>();
+            builder.Services.AddScoped<IDataForInstructorRepository,DataForInstructorRepository>();
+            builder.Services.AddScoped<IUserDataShortcutService,UserDataShortCutService>();
+            builder.Services.AddScoped<IUserAccountRepository,UserAccountRepository>();
+            builder.Services.AddScoped<IUserRepository , UserRepository>();
+            builder.Services.AddScoped<ICourseSectionRepository,CourseSectionRepository>();
+            builder.Services.AddScoped<ICourseFullDataViewModelService, CourseFullDataViewModelService>();
+            builder.Services.AddScoped<ICourseDiscountRepository,CourseDiscountRepository>();
+
+			#endregion
 
 
-            builder.Services.AddIdentity<User, IdentityRole>(op =>
+			builder.Services.AddIdentity<User, IdentityRole>(op =>
             {
                 op.Password.RequireDigit = true;
                 op.Password.RequiredLength = 8;
@@ -48,7 +61,10 @@ namespace E_Learning
                 op.IOTimeout = TimeSpan.FromMinutes(5);
             });
 
-            var app = builder.Build();
+			builder.Services.AddScoped<UserManager<User>>();
+
+
+			var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -63,11 +79,21 @@ namespace E_Learning
                   name: "area",
                   pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
                 );
-            
 
-            app.MapControllerRoute(
+
+			app.UseEndpoints(endpoints =>
+			{
+				endpoints.MapControllerRoute(
+				  name: "areas",
+				  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+				);
+			});
+
+			app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
 
             app.Run();
         }

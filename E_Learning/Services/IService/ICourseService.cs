@@ -1,11 +1,11 @@
-﻿using E_Learning.ViewModels;
+﻿using E_Learning.Areas.Course.Models;
 
 namespace E_Learning.Services.IService
 {
     public interface ICourseService
     {
-        Task<List<CourseViewModel>> GetAllCourses();
-        Task<List<CourseViewModel>> GetCoursesWithSubCategory(string subCategoryId);
+        Task<List<CourseView>> GetAllCourses();
+        Task<List<CourseView>> GetCoursesWithSubCategory(string subCategoryId);
         //Task<List<CourseViewModel>> AddFilterCoursewithRating(int minRating , string subCategoryId);
         //Task<List<CourseViewModel>> AddFilterCourseWithDuration (int minDuration , int maxDuration ,string subCategoryId);
         //Task<List<CourseViewModel>> AddFilterCourseWithLanguage(string language , string subCategoryId);

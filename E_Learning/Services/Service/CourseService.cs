@@ -1,7 +1,7 @@
-﻿using E_Learning.Repositories.IReposatories;
+﻿using E_Learning.Areas.Course.Models;
+using E_Learning.Repositories.IReposatories;
 using E_Learning.Repository.IReposatories;
 using E_Learning.Services.IService;
-using E_Learning.ViewModels;
 
 namespace E_Learning.Services.Service
 {
@@ -13,12 +13,12 @@ namespace E_Learning.Services.Service
         {
             this.courseView = courseView;
         }
-        public async Task<List<CourseViewModel>> GetAllCourses()
+        public async Task<List<CourseView>> GetAllCourses()
         {
             return await courseView.GetCourseViewModels();
         }
 
-        public async Task<List<CourseViewModel>> GetCoursesWithSubCategory(string subCategoryId)
+        public async Task<List<CourseView>> GetCoursesWithSubCategory(string subCategoryId)
         {
             return await courseView.GetCourseViewModelsForsubcategory(subCategoryId);
         }

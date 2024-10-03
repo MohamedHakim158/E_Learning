@@ -1,6 +1,7 @@
 ﻿using E_Learning.Models;
 using E_Learning.Repository.IReposatories;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Versioning;
 
 namespace E_Learning.Repositories.Repository
 {
@@ -58,7 +59,23 @@ namespace E_Learning.Repositories.Repository
                 .ToListAsync();
         }
 
-        
-    }
+		public async Task<IEnumerable<CourseSection>> GetSectionsByCourseIdLazyAsync(string courseId)
+		{
+			return await _context.Set<CourseSection>().Include(cs => cs.SectionLessons)
+				.Where(cs => cs.CourseId == courseId)
+				.OrderBy(cs => cs.order)
+				.ToListAsync();
+		}
+
+		public async Task<CourseSection> GetByIdLazyAsync(string id)
+		{
+			return await _context.Set<CourseSection>().Include(s => s.SectionLessons).FirstAsync(x=>x.Id == id);
+		}
+
+		public async Task<IEnumerable<CourseSection>> GetAllLazyAsync()
+		{
+			return await _context.Set<CourseSection>().Include(s => s.SectionLessons).ToListAsync();
+		}
+	}
 
 }

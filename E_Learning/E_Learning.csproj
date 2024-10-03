@@ -27,10 +27,6 @@
   <ItemGroup>
     <Folder Include="Areas\Authentication\Data\" />
     <Folder Include="Areas\Authentication\Views\" />
-    <Folder Include="Areas\Course\Controllers\" />
-    <Folder Include="Areas\Course\Data\" />
-    <Folder Include="Areas\Course\Models\" />
-    <Folder Include="Areas\Course\Views\" />
     <Folder Include="wwwroot\Images\Courses\" />
   </ItemGroup>
 
