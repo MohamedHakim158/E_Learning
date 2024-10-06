@@ -11,6 +11,7 @@ using E_Learning.Areas.Home.Data;
 using E_Learning.Areas.Course.Data.Repositories;
 using E_Learning.Areas.Course.Data.Services;
 using E_Learning.Repositories.IReposatories;
+using E_Learning.Areas.Search.Data;
 
 namespace E_Learning
 {
@@ -43,7 +44,7 @@ namespace E_Learning
             builder.Services.AddScoped<ICourseSectionRepository,CourseSectionRepository>();
             builder.Services.AddScoped<ICourseFullDataViewModelService, CourseFullDataViewModelService>();
             builder.Services.AddScoped<ICourseDiscountRepository,CourseDiscountRepository>();
-
+            builder.Services.AddScoped<ICourseSearchRepository,CourseSearchRepository>();
 			#endregion
 
 

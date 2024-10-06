@@ -6,5 +6,7 @@ namespace E_Learning.Repository.IReposatories
         Task<IEnumerable<Course>> GetCoursesBySubCategoryAsync(string subCategoryId);
         Task<IEnumerable<Course>> GetCoursesByLevelAsync(string courseLevel);
         Task<IEnumerable<Course>> GetCoursesByPriceRangeAsync(double minPrice, double maxPrice);
+        Task<IEnumerable<Course>> SearchCoursesAsync(string query);
+        Task<IEnumerable<Course>> GetCoursesAsync();
     }
 }

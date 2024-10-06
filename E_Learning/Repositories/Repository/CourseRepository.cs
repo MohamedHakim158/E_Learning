@@ -72,6 +72,30 @@ namespace E_Learning.Repositories.Repository
                 .Where(c => c.Price  >= minPrice && c.Price <= maxPrice)
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<Course>> GetCoursesAsync()
+        {
+            return await _context.Courses.Include(c => c.user).ToListAsync();
+        }
+
+
+        public async Task<IEnumerable<Course>> SearchCoursesAsync(string query)
+        {
+            query = query.ToLower();
+
+            return await _context.Courses
+                .Include(c => c.user) // Include the Instructor (User)
+                .Where(c => c.Title.ToLower().Contains(query) || c.Description.ToLower().Contains(query))
+                .ToListAsync();
+        }
+
+        // Helper method to preprocess the query
+        private string PreprocessQuery(string query, string[] stopWords)
+        {
+            return string.Join(" ", query.Split(' ').Where(word => !stopWords.Contains(word.ToLower())));
+        }
+
+    
     }
 
 }
