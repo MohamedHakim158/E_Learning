@@ -1,10 +1,10 @@
 ﻿using E_Learning.Areas.Authentication.Models;
 using E_Learning.Models;
-using E_Learning.Repositories.IReposatories;
 using E_Learning.Services.IService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using System.Security.Claims;
 
 namespace E_Learning.Services.Service
@@ -15,25 +15,18 @@ namespace E_Learning.Services.Service
         private readonly IEmailSender sender;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly SignInManager<User> signInManager;
-
-        private readonly IDataForInstructor DataForInstructor;
-        public AuthService(UserManager<User> manager , IEmailSender sender , RoleManager<IdentityRole> roleManager ,
-            SignInManager<User> signInManager , IDataForInstructor dataForInstructor , IUserRepository userRepository)
+        public AuthService(UserManager<User> manager , IEmailSender sender , RoleManager<IdentityRole> roleManager , SignInManager<User> signInManager)
         {
             this.userManager = manager;
             this.sender = sender;
             this.roleManager = roleManager;
             this.signInManager = signInManager;
-            this.DataForInstructor = dataForInstructor;
-            UserRepository = userRepository;
         }
-
-        public IUserRepository UserRepository { get; }
 
         public async Task<ProcessResult> ChangePasswordAsync(ChangePasswordRequest model)
         {
             ProcessResult process = new ProcessResult();
-            var user =await UserRepository.GetByEmail(model.Email);
+            var user =await userManager.FindByEmailAsync(model.Email);
             if (user != null)
             {
                 var token = await userManager.GeneratePasswordResetTokenAsync(user);
@@ -50,46 +43,25 @@ namespace E_Learning.Services.Service
             return new ProcessResult();
         }
 
-        public async Task<bool> CheckEmailExist(string Email)
+        public async Task ConfirmEmailAsync(string Email)
         {
-            var user = await UserRepository.GetByEmail(Email) ;
-            return user != null;
-        }
-
-        public async Task<bool> CheckUserNameTaken(string UserName)
-        {
-            var user = await userManager.FindByNameAsync(UserName);
-            return user != null;
-        }
-
-        public async Task<ProcessResult> ConfirmEmailAsync(string Email)
-        {
-            var user = await UserRepository.GetByEmail(Email);
-            if(user != null)
-            {
-                var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
-                await userManager.ConfirmEmailAsync(user, token);
-                await userManager.UpdateAsync(user);
-                return new ProcessResult { IsSucceded = true };
-            }
-            return new ProcessResult { IsSucceded = false, Message = "Error confirming email" };
-         }
-
-        public async Task<bool> EmailConfirmed(string Email)
-        {
-            var user = await UserRepository.GetByEmail(Email);
-            if (user != null)
-            {
-                return await userManager.IsEmailConfirmedAsync(user);
-            }
-            return false;
+            var user =await userManager.FindByEmailAsync(Email);
+            user.EmailConfirmed = true;
+            await userManager.UpdateAsync(user);
+            
         }
 
         public async Task<ProcessResult> LoginAsync(LoginRequest model)
         {
             ProcessResult process = new ProcessResult();
-            var user = await UserRepository.GetByEmail(model.Email);
-            if (! await userManager.CheckPasswordAsync(user!, model.Password))
+            var user = await userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                process.Message = "There Is no account for email: " + model.Email;
+                return process;
+            }
+            var validPassword = await userManager.CheckPasswordAsync(user, model.Password);
+            if (!validPassword)
             {
                 process.Message = "Wrong Password";
                 return process;
@@ -109,43 +81,59 @@ namespace E_Learning.Services.Service
             var user = new User
             {
                 Email = model.Email,
-                UserName = model.UserName,
                 FName = model.FName,
                 LName = model.LName,
-                DateJoined = DateTime.Now
+                UserName = model.UserName,
+                Image = "NotDefine.jpg",
+                DateJoined = DateTime.Now,
+                LastLogin = DateTime.Now,
+                PhoneNumberConfirmed = false,
             };
+
             ProcessResult process = new ProcessResult();
-            var result = await userManager.CreateAsync(user , model.Password);
+            var result = await userManager.CreateAsync(user, model.Password);
+
             if (result.Succeeded)
             {
                 process.IsSucceded = true;
-                if (!await roleManager.RoleExistsAsync(model.RegisteredAs)){
+
+                // Check if role exists, if not create the role
+                if (!await roleManager.RoleExistsAsync(model.RegisteredAs))
+                {
                     await roleManager.CreateAsync(new IdentityRole
                     {
                         Name = model.RegisteredAs,
                         NormalizedName = model.RegisteredAs.ToUpper()
                     });
                 }
+
+                // Add user to role
                 await userManager.AddToRoleAsync(user, model.RegisteredAs);
-                if (await userManager.IsInRoleAsync(user , "instructor"))
+
+                // Add a balance claim if the user is an instructor
+                if (await userManager.IsInRoleAsync(user, "Instructor"))
                 {
-                    await DataForInstructor.AddAsync(new DataForInstructor { Balance=0,UserId = user.Id});
+                    var claim = new Claim("Balance", "0");
+                    await userManager.AddClaimAsync(user, claim);
                 }
             }
             else
             {
                 string Error = string.Empty;
                 foreach (var error in result.Errors)
-                    Error += $"\n{error.Description} , ";
+                {
+                    Error += $"\n{error.Description}, ";
+                }
                 process.Message = Error;
             }
-            
+
             return process;
         }
 
+
         public async Task<ProcessResult> ResetPasswordAsync([FromBody]ResetPasswordRequest model)
         {
-            var user = await UserRepository.GetByEmail(model.Email!);
+            var user = await userManager.FindByEmailAsync(model.Email!);
             if (user != null)
             {
                 var token = await userManager.GeneratePasswordResetTokenAsync(user);
@@ -164,7 +152,7 @@ namespace E_Learning.Services.Service
             }
             return  new ProcessResult { };
         }
-        
+
         public async Task<ProcessResult> SendConfirmationEmailAsync(ConfrimEmailRequest model)
         {
             var subject = "Confirmation Email";
@@ -185,7 +173,7 @@ namespace E_Learning.Services.Service
 
         private async Task<ProcessResult> GenerateEmailAsync(string Email , string subject , string body)
         {
-            var user = await UserRepository.GetByEmail(Email);
+            var user = await userManager.FindByEmailAsync(Email);
                 try
             {
                 await sender.SendEmailAsync(Email, subject, body);

@@ -12,7 +12,7 @@ namespace E_Learning.Services.Service
             var fromPassword = "qyou vjzm gpjw vefn";
 
             var message = new MailMessage();
-            message.From = new MailAddress(fromMail,"LearnSphere");
+            message.From = new MailAddress(fromMail,"Programmica");
             message.Subject = subject;
             message.To.Add(email);
             message.Body = $"<html><body>{htmlMessage}</body></html>";

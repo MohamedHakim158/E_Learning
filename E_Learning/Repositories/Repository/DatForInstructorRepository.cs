@@ -1,5 +1,7 @@
 ﻿using E_Learning.Models;
 using E_Learning.Repositories.IReposatories;
+using Microsoft.EntityFrameworkCore;
+using SendGrid.Helpers.Mail;
 
 namespace E_Learning.Repositories.Repository
 {
@@ -13,28 +15,46 @@ namespace E_Learning.Repositories.Repository
         }
         public async Task AddAsync(DataForInstructor entity)
         {
-            await context.AdditionalUserData.AddAsync(entity);
+            await context.DataForInstructors.AddAsync(entity);
             await context.SaveChangesAsync();
         }
 
-        public Task DeleteAsync(string id)
+        public async Task DeleteAsync(string id)
         {
-            throw new NotImplementedException();
+            var instructorData = await GetByIdAsync(id);
+            if (instructorData != null)
+            {
+                context.DataForInstructors.Remove(instructorData);
+                await context.SaveChangesAsync();
+            }
         }
 
-        public Task<IEnumerable<DataForInstructor>> GetAllAsync()
+        public async Task<IEnumerable<DataForInstructor>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await context.DataForInstructors.ToListAsync();
         }
 
-        public Task<DataForInstructor> GetByIdAsync(string id)
+        public async Task<DataForInstructor> GetByIdAsync(string id)
         {
-            throw new NotImplementedException();
+            return await context.DataForInstructors.FindAsync(id);
         }
 
-        public Task UpdateAsync(DataForInstructor New, DataForInstructor Old)
+        public async Task UpdateAsync(DataForInstructor Old, DataForInstructor New)
         {
-            throw new NotImplementedException();
+            {
+                Old.Balance = New.Balance;
+                Old.Profession = New.Profession;
+                Old.Bio = New.Bio;
+            }
+            if(New != Old)
+            {
+                New.Id = "cnkmdjfsnkd";
+            }
+            if (Old != null)
+            {
+                context.DataForInstructors.Update(Old);
+                await context.SaveChangesAsync();
+            }
         }
     }
 }

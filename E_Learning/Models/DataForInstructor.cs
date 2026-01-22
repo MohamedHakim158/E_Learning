@@ -9,7 +9,7 @@ namespace E_Learning.Models
         public string? Bio { get; set; }
         public int Balance { get; set; }
         [ForeignKey("User")]
-        public string UserId { get; set; }
-        public User User { get; set; }
+        public string UserId { get; set; } = null!;
+        public User? User { get; set; }
     }
 }

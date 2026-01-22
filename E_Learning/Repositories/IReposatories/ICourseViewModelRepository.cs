@@ -1,13 +1,10 @@
-﻿using E_Learning.ViewModels;
+﻿using E_Learning.Areas.Course.Models;
 
 namespace E_Learning.Repositories.IReposatories
 {
     public interface ICourseViewModelRepository
     {
-        Task<List<CourseViewModel>> GetCourseViewModelsForsubcategory(string subCategory);
-        Task<List<CourseViewModel>> GetCourseViewModels();
-        Task<List<CourseViewModel>> GetPendingCourses();
-        Task<List<CourseViewModel>> GetBestSellerCourses();
-        Task<List<CourseViewModel>> GetTopRatedCourses();
+        Task<List<CourseView>> GetCourseViewModelsForsubcategory(string subCategory);
+        Task<List<CourseView>> GetCourseViewModels();
     }
 }

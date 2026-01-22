@@ -3,7 +3,7 @@ using E_Learning.Repositories.IReposatories;
 using E_Learning.Repositories.Repository;
 using E_Learning.Repository.IReposatories;
 using E_Learning.Services.IService;
-using E_Learning.ViewModels;
+using E_Learning.Areas.Course.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace E_Learning.Services.Service
@@ -57,27 +57,27 @@ namespace E_Learning.Services.Service
         #endregion
 
         #region Courses (Admit , Reject , BestSeller , top rated)
-        public async Task<List<CourseViewModel>> ShowPendingCourses()
-        {
-            var courses = await courseService.GetPendingCourses();
-            return courses;
-        }
-         public async Task AdmitCourse(string CourseId)
-        {
-            await courseService.UpdateCourseStatus(CourseId, "Admitted");
-        }
-        public async Task RejectCourse(string CourseId)
-        {
-            await courseService.UpdateCourseStatus(CourseId, "Rejected");
-        }
-        public async Task<List<CourseViewModel>> ShowCourseBestSeller()
-        {
-            return await courseService.GetBestSeller();
-        }
-        public async Task<List<CourseViewModel>> GetTopRatedCourses()
-        {
-            return await courseService.GetTopRatedCourses();
-        }
+        //public async Task<List<CourseView>> ShowPendingCourses()
+        //{
+        //    var courses = await courseService.GetPendingCourses();
+        //    return courses;
+        //}
+        // public async Task AdmitCourse(string CourseId)
+        //{
+        //    await courseService.UpdateCourseStatus(CourseId, "Admitted");
+        //}
+        //public async Task RejectCourse(string CourseId)
+        //{
+        //    await courseService.UpdateCourseStatus(CourseId, "Rejected");
+        //}
+        //public async Task<List<CourseView>> ShowCourseBestSeller()
+        //{
+        //    return await courseService.GetBestSeller();
+        //}
+        //public async Task<List<CourseView>> GetTopRatedCourses()
+        //{
+        //    return await courseService.GetTopRatedCourses();
+        //}
         #endregion
 
         #region Tracking Enrollments

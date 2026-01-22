@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "F:\\back-end\\Githup\\E_Learning\\E_Learning\\E_Learning.csproj": {}
+    "E:\\_Pioneers course\\Learnsphere\\E_Learning\\E_Learning.csproj": {}
   },
   "projects": {
-    "F:\\back-end\\Githup\\E_Learning\\E_Learning\\E_Learning.csproj": {
+    "E:\\_Pioneers course\\Learnsphere\\E_Learning\\E_Learning.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\back-end\\Githup\\E_Learning\\E_Learning\\E_Learning.csproj",
+        "projectUniqueName": "E:\\_Pioneers course\\Learnsphere\\E_Learning\\E_Learning.csproj",
         "projectName": "E_Learning",
-        "projectPath": "F:\\back-end\\Githup\\E_Learning\\E_Learning\\E_Learning.csproj",
-        "packagesPath": "C:\\Users\\Mohamed Hakim\\.nuget\\packages\\",
-        "outputPath": "F:\\back-end\\Githup\\E_Learning\\E_Learning\\obj\\",
+        "projectPath": "E:\\_Pioneers course\\Learnsphere\\E_Learning\\E_Learning.csproj",
+        "packagesPath": "C:\\Users\\mohammed\\.nuget\\packages\\",
+        "outputPath": "E:\\_Pioneers course\\Learnsphere\\E_Learning\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Mohamed Hakim\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\mohammed\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -46,6 +46,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "MailKit": {
+              "target": "Package",
+              "version": "[4.8.0, )"
+            },
             "Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter": {
               "target": "Package",
               "version": "[8.0.8, )"
@@ -84,7 +88,23 @@
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[8.0.5, )"
+              "version": "[8.0.6, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
+            "PayPalCheckoutSdk": {
+              "target": "Package",
+              "version": "[1.0.4, )"
+            },
+            "SendGrid": {
+              "target": "Package",
+              "version": "[9.29.3, )"
+            },
+            "System.Configuration.ConfigurationManager": {
+              "target": "Package",
+              "version": "[8.0.1, )"
             }
           },
           "imports": [
@@ -106,7 +126,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

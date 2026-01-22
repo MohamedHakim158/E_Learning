@@ -2,11 +2,11 @@
 using E_Learning.Services.IService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using System.Security.Claims;
 
 namespace E_Learning.Areas.Authentication.Controllers
 {
+    [Area("Authentication")]
     public class AccountController : Controller
     {
         private readonly IAuthService authService;
@@ -15,45 +15,33 @@ namespace E_Learning.Areas.Authentication.Controllers
         {
             this.authService = authService;
         }
+
         #region Register
+        [HttpGet]
         public async Task<IActionResult> Register()
         {
             return View("Register" , new RegisterRequest());
         }
-        
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveRegister(RegisterRequest model)
         {
             if (ModelState.IsValid)
             {
-                if(await authService.CheckEmailExist(model.Email))
-                {
-                    ModelState.AddModelError("Email", "There is already an account with this email");
-                    goto returning;
-                }
-                if (await authService.CheckUserNameTaken(model.UserName))
-                {
-                    ModelState.AddModelError("UserName", $"UserName: {model.UserName} is already taken");
-                    goto returning;
-                } 
                 var result = await authService.RegisterAsync(model);
                 if (!result.IsSucceded)
                 {
                     ModelState.AddModelError(string.Empty, result.Message);
-                    goto returning;
+                    return View("Register", model);  
                 }
-
-                TempData["ConfirmEmailCode"] = await GenerateCode();
-                var model1 = new ConfrimEmailRequest
+                else
                 {
-                    Email = model.Email,
-                    Code = Convert.ToInt32(TempData.Peek("ConfirmEmailCode"))
-                };
-                await authService.SendConfirmationEmailAsync(model1);
-                model1.Code = null;
-                return View("ConfirmEmail", model1);
-
+                    var loginData = new LoginRequest { Email = model.Email, Password = model.Password, RememberMe = true };
+                    return  RedirectToAction("ShowLogin");
+                }
             }
-            returning: return View("Register", model);
+            return View("Register", model);  
         }
 
 
@@ -61,9 +49,18 @@ namespace E_Learning.Areas.Authentication.Controllers
         #endregion
 
         #region Confirm Email
-       
-        [HttpPost]
-        public async Task<IActionResult> ConfirmEmail( ConfrimEmailRequest model)
+        public async Task<IActionResult> SendConfirmEmail(string email)
+        {
+            TempData["ConfirmEmailCode"] = await GenerateCode();
+            var model = new ConfrimEmailRequest
+            {
+                Email = email,
+                Code = Convert.ToInt32(TempData.Peek("ConfirmEmailCode"))
+            };
+            var result = await authService.SendConfirmationEmailAsync(model);
+            return RedirectToAction(" ConfirmEmail", model);
+        }
+        public async Task<IActionResult> ConfirmEmail([FromBody] ConfrimEmailRequest model)
         {
             //may make a counter
             var correctCode = Convert.ToInt32(TempData.Peek("ConfirmEmailCode"));
@@ -71,42 +68,30 @@ namespace E_Learning.Areas.Authentication.Controllers
             {
                 await authService.ConfirmEmailAsync(model.Email);
                 TempData.Remove("ConfirmEmailCode");
-                return RedirectToAction("Login");
-
-            }
-            ModelState.AddModelError("Code", "Error code entered");
-            return View(model);
-            }
-        
-        public async Task<IActionResult> ResendConfirmEmail(ConfrimEmailRequest model)
-        {
-            if (TempData.ContainsKey("ConfirmEmailCode"))
-            {
-                ModelState.AddModelError("","you can request another code after 5 minutes");
-                return View("ConfirmEmail", model);
             }
             else
             {
-                return RedirectToAction("SendConfirmEmail", model.Email);
+                ViewBag.Message = "Error code, Please try again!";
             }
-            
+            return Ok();
+        }
+        public async Task<IActionResult> ResendConfirmEmail()
+        {
+            if (TempData.ContainsKey("ConfirmEmailCode"))
+            {
+                return Content("you can request another code after 5 minutes");
+            }
+            return Ok();
         }
         #endregion
 
         #region Password Reset & change
-        public async Task<IActionResult> EnterEmailForForget()
+        public async Task<IActionResult> ForgetPassword()
         {
-            return View("AuthEmail");
+            return Ok();
         }
-        
         public async Task<IActionResult> SendResetPasswordEmail(string email)
         {
-            
-            if (!await authService.CheckEmailExist(email))
-            {
-                ModelState.AddModelError("", $"There is no Account with email: {email} "  );
-                return View("AuthEmail", email);
-            }
             var model = new ConfrimEmailRequest
             {
                 Email = email,
@@ -114,42 +99,31 @@ namespace E_Learning.Areas.Authentication.Controllers
             };
             TempData["ResetPasswordCode"] = model.Code;
             var result = await authService.SendResetPassowrdEmail(model);
-            if(result.IsSucceded)
-                return View("ResetPassword");
-            return View("AuthEmail", email);
+            return Ok();
         }
-        public async Task<IActionResult> ResendResetPasswordEmail(ResetPasswordRequest model)
+        public async Task<IActionResult> CheckResetP(ConfrimEmailRequest model)
         {
-            if (TempData.ContainsKey("ResetPasswordCode"))
-            {
-                ModelState.AddModelError("Code", "you can request another code after 5 minutes");
-                return View("ResetPassword", model);
-            }
-            return RedirectToAction("EnterEmailForForget");
+            var correctCode = Convert.ToInt32(TempData.Peek("ResetPasswordCode"));
+            if (model.Code == correctCode)
+                TempData.Remove("ResetPasswordCode");
+            return Ok();
         }
-        
-        public async Task<IActionResult> CompleteResetPassword(ResetPasswordRequest model)
+        public async Task<IActionResult> ResetPassword(ResetPasswordRequest model)
         {
             if (ModelState.IsValid)
             {
-                var correctCode = Convert.ToInt32(TempData.Peek("ResetPasswordCode"));
-                if (model.Code == correctCode)
+                var result = await authService.ResetPasswordAsync(model);
+                if (result.IsSucceded)
                 {
-                    TempData.Remove("ResetPasswordCode");
-                    await authService.ResetPasswordAsync(model);
-                    return RedirectToAction("Login");
+
                 }
-                ModelState.AddModelError("Code", "Error Code Entered");
-                
             }
-            return View("ResetPassword", model);
-            
+            return Ok();
         }
-        
         [Authorize]
         public async Task<IActionResult> ChangePassword()
         {
-            return View("ChangePassword");
+            return Ok();
         }
         public async Task<IActionResult> SaveChangePassword(ChangePasswordRequest model)
         {
@@ -159,39 +133,39 @@ namespace E_Learning.Areas.Authentication.Controllers
         #endregion
 
         #region Login & Logout
-        public async Task<IActionResult> Login()
+        [HttpGet]
+        public async Task<IActionResult> ShowLogin()
         {
-            return View("login",new LoginRequest());
+            return View("login" , new LoginRequest());
         }
-        public async Task<IActionResult> CheckLogin(LoginRequest model)
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginRequest model)
         {
             if (ModelState.IsValid)
             {
-                if (!await authService.CheckEmailExist(model.Email))
-                {
-                    ModelState.AddModelError("Email", "There is no account with this email");
-                    goto returning;
-                }
-                if (!await authService.EmailConfirmed(model.Email))
-                {
-                    return RedirectToAction("ConfirmEmail" , new ConfrimEmailRequest { Email = model.Email });
-                }
                 var result = await authService.LoginAsync(model);
                 if (result.IsSucceded)
                 {
-                        return Content("Login Successfully");  
+                    
+                    return RedirectToAction("HomeIndex", "HomeArea", new { area = "Home" });
                 }
                 else
                 {
-                    ModelState.AddModelError("Password", "Wrong Password");
+                    if (result.Message.Contains("Password"))
+                        ModelState.AddModelError("Password", result.Message);
+                    else
+                        ModelState.AddModelError("Email", result.Message);
                 }
             }
-          returning:  return View("Login",model);
+            return View("Login" , model);
         }
+
         public async Task<IActionResult> Logout()
         {
             await authService.LogoutAsync();
-            return Ok();
+            return RedirectToAction("HomeIndex", "HomeArea", new {area="Home"});
         }
         #endregion
 
